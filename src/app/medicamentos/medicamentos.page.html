@@ -13,11 +13,12 @@
       CONSEJO NACIONAL DE SALUD - CONASA
       CUADRO NACIONAL DE MEDICAMENTOS BASICOS
     </ion-label>
+    <ion-button (click)="mostrarFiltro()"><ion-icon  size="small" name="search-outline"></ion-icon></ion-button>
+    <ion-label > Resultado {{numeroItems}} Registros </ion-label>
   </div>
-  <ion-item>   
-    <ion-button (click)="mostrarFiltro()"><ion-icon name="search-outline"></ion-icon></ion-button>
-    <ion-label > Resultado xxx Registros </ion-label>
-  </ion-item>
+  
+   
+
   <div [hidden] = "bandera">
     <ion-item>
       <ion-label position="stacked">Grupo Anatomico</ion-label>
@@ -30,7 +31,7 @@
   </div>
   <ion-searchbar
   [(ngModel)]="searchTerm"
-  (ionChange)="setFilteredItems()">
+  (ionChange)="setFilteredItems()">  
   </ion-searchbar>
   
  <ion-list>

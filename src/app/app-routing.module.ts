@@ -34,7 +34,12 @@ const routes: Routes = [
   {
     path: 'paginaweb',
     loadChildren: () => import('./paginaweb/paginaweb.module').then( m => m.PaginawebPageModule)
+  },
+  {
+    path: 'medicine/:id',
+    loadChildren: () => import('./medicine/medicine.module').then( m => m.MedicinePageModule)
   }
+
 ];
 
 @NgModule({
