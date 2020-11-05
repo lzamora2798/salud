@@ -14,13 +14,24 @@
       CUADRO NACIONAL DE MEDICAMENTOS BASICOS
     </ion-label>
   </div>
-  <ion-item>
-    <ion-icon name="search-outline"></ion-icon>
-  
-    <ion-label> hello </ion-label>
-  
+  <ion-item>   
+    <ion-button (click)="mostrarFiltro()"><ion-icon name="search-outline"></ion-icon></ion-button>
+    <ion-label > Resultado xxx Registros </ion-label>
   </ion-item>
-    
+  <div [hidden] = "bandera">
+    <ion-item>
+      <ion-label position="stacked">Grupo Anatomico</ion-label>
+      <ion-input placeholder="placeholder"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Frecuente</ion-label>
+      <ion-input placeholder="placeholder"></ion-input>
+    </ion-item>
+  </div>
+  <ion-searchbar
+  [(ngModel)]="searchTerm"
+  (ionChange)="setFilteredItems()">
+  </ion-searchbar>
   
  <ion-list>
    <ion-item *ngFor="let medicina of medicineArray" >

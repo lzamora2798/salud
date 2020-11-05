@@ -7,13 +7,14 @@ import { IonicModule } from '@ionic/angular';
 import { MedicamentosPageRoutingModule } from './medicamentos-routing.module';
 
 import { MedicamentosPage } from './medicamentos.page';
-
+import { ReactiveFormsModule } from "@angular/forms";
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    MedicamentosPageRoutingModule
+    MedicamentosPageRoutingModule,
+    ReactiveFormsModule
   ],
   declarations: [MedicamentosPage]
 })

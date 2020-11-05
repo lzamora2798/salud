@@ -8,8 +8,9 @@ import {map} from 'rxjs/operators';
 })
 export class MedicineService {
   url ='http://conasa.dnet.ec/ws/_getSearch_Medicine.ws.php'
+  public items: any;
   constructor(private http: HttpClient) {
-    
+    this.items = this.getData();
   }
 
   getData(){
@@ -17,6 +18,7 @@ export class MedicineService {
         return action['result'];
     }));
   }
+  
 
 
 }
