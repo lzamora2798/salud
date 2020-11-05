@@ -4,12 +4,36 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'folder/Inbox',
+    redirectTo: 'medicamentos',
     pathMatch: 'full'
   },
   {
-    path: 'folder/:id',
-    loadChildren: () => import('./folder/folder.module').then( m => m.FolderPageModule)
+    path: 'medicamentos',
+    loadChildren: () => import('./medicamentos/medicamentos.module').then( m => m.MedicamentosPageModule)
+  },
+  {
+    path: 'presentacion',
+    loadChildren: () => import('./presentacion/presentacion.module').then( m => m.PresentacionPageModule)
+  },
+  {
+    path: 'conasa',
+    loadChildren: () => import('./conasa/conasa.module').then( m => m.ConasaPageModule)
+  },
+  {
+    path: 'conamei',
+    loadChildren: () => import('./conamei/conamei.module').then( m => m.ConameiPageModule)
+  },
+  {
+    path: 'acuerdo',
+    loadChildren: () => import('./acuerdo/acuerdo.module').then( m => m.AcuerdoPageModule)
+  },
+  {
+    path: 'informacion',
+    loadChildren: () => import('./informacion/informacion.module').then( m => m.InformacionPageModule)
+  },
+  {
+    path: 'paginaweb',
+    loadChildren: () => import('./paginaweb/paginaweb.module').then( m => m.PaginawebPageModule)
   }
 ];
 
