@@ -14,15 +14,15 @@ export class MedicamentosPage implements OnInit {
   private contadorBandera = 0;
   public searchTerm: string = "";
   constructor(private medicineService:MedicineService) {
-   
-   }
-
-  ngOnInit() {
     this.medicineService.getData().subscribe((res) =>{ //una opcion es enviar el subcribe al service
       this.medicineArrayFinal =res;
       this.setFilteredItems();
       console.log(this.medicineArray)
     },(error)=>{console.log(error)})
+   }
+
+  ngOnInit() {
+    
 
   }
 

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-
+import { MedicamentosPage } from "./medicamentos/medicamentos.page";
+import {PaginawebPage} from "./paginaweb/paginaweb.page"
 const routes: Routes = [
   {
     path: '',
@@ -10,7 +11,13 @@ const routes: Routes = [
   {
     path: 'medicamentos',
     loadChildren: () => import('./medicamentos/medicamentos.module').then( m => m.MedicamentosPageModule)
+    
   },
+  {
+    path: 'medicine/:code',
+    loadChildren: () => import('./medicine/medicine.module').then( m => m.MedicinePageModule)
+    },
+   
   {
     path: 'presentacion',
     loadChildren: () => import('./presentacion/presentacion.module').then( m => m.PresentacionPageModule)
@@ -33,11 +40,7 @@ const routes: Routes = [
   },
   {
     path: 'paginaweb',
-    loadChildren: () => import('./paginaweb/paginaweb.module').then( m => m.PaginawebPageModule)
-  },
-  {
-    path: 'medicine/:id',
-    loadChildren: () => import('./medicine/medicine.module').then( m => m.MedicinePageModule)
+    component: PaginawebPage
   }
 
 ];
@@ -49,3 +52,5 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule {}
+
+
