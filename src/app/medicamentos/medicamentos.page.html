@@ -1,22 +1,22 @@
 <ion-header [translucent]="true" color="secondary">
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Medicamentos</ion-title>
+    <ion-title>MEDICAMENTOS</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" padding="true">
   <div class="general">
-  <div class="padding">
-    <ion-label class="tituloLetra">
+  <div class="tituloCentrado">
+    <ion-label >
       CONSEJO NACIONAL DE SALUD - CONASA
       CUADRO NACIONAL DE MEDICAMENTOS BASICOS
     </ion-label>
   </div>
   <div>
-    <ion-button (click)="mostrarFiltro()"><ion-icon  size="small" name="filter"></ion-icon></ion-button>
+    <ion-button (click)="mostrarFiltro()" color="secondary"><ion-icon  size="small" name="filter"></ion-icon></ion-button>
     <ion-label > Resultado {{numeroItems}} Registros </ion-label>
   </div>
   <div [hidden] = "bandera">

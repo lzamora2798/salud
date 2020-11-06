@@ -24,3 +24,21 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+.tituloCentrado{
+    font-weight: bold;
+    color: #C8021A;
+    display: flex;
+    justify-content: center;
+    font-size: small;
+    text-align: center;
+    padding-top: 3%;
+}
+
+
+.general{
+    position: sticky;
+    top: 0px;
+    z-index: 100;
+    background-color: white;
+}

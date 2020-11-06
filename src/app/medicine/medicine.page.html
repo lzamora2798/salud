@@ -1,9 +1,91 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>medicine</ion-title>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button>
+        <ion-icon name="earth"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>MEDICAMENTO</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-<ion-label> El codigo es {{folder}}</ion-label>
+<div class="general">
+  <div class="tituloCentrado">
+    <ion-label >
+      CONSEJO NACIONAL DE SALUD - CONASA
+      CUADRO NACIONAL DE MEDICAMENTOS BASICOS
+      REGISTRO TERAPEUTICO
+    </ion-label>
+  </div>
+  <ion-grid>
+    <ion-row>
+      <ion-col class="col1">
+        <span>Código ATC</span>
+      </ion-col>
+      <ion-col class="col2">
+        <span>{{code}}</span>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="col1">
+        <span>DCI:</span>
+      </ion-col>
+      <ion-col class="col2">
+        <span>{{code}}</span>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="col1">
+        <span>Forma Farmacéutica:</span>
+      </ion-col>
+      <ion-col class="col2">
+        <span>{{code}}</span>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="col1">
+        <span>Concentración:</span>
+      </ion-col>
+      <ion-col class="col2">
+        <span>{{code}}</span>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="col1">
+        <span>Nivel de Prescripción:</span>
+      </ion-col>
+      <ion-col class="col2">
+        <span>{{code}}</span>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="col1">
+        <span>Nivel de Atención:</span>
+      </ion-col>
+      <ion-col class="col2">
+        <span>{{code}}</span>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="col1">
+        <span>Via administración</span>
+      </ion-col>
+      <ion-col class="col2">
+        <span>{{code}}</span>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</div>
+
+<ion-button expand="full" color="tertiary">PICTOGRAMAS</ion-button>
+<ion-button expand="full" color="tertiary">INDICACIONES</ion-button>
+<ion-button expand="full" color="tertiary">DOSIFICACIÓN</ion-button>
+<ion-button expand="full" color="tertiary">REACCIONES ADVERSAS</ion-button>
+<ion-button expand="full" color="tertiary">CONTRAINDICACIONES</ion-button>
+<ion-button expand="full" color="tertiary">PRECAUCIONES</ion-button>
+<ion-button expand="full" color="tertiary">INTERACCIONES</ion-button>
+<ion-button expand="full" color="tertiary">USO EN</ion-button>
+<ion-button expand="full" color="tertiary">OBSERVACIONES</ion-button>
+<ion-button expand="full" color="tertiary">TRABAJOS CITADOS</ion-button>
 </ion-content>

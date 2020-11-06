@@ -9,12 +9,12 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class MedicinePage implements OnInit {
 
-  public folder: string;
+  public code: string;
 
   constructor(private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
-    this.folder = this.activatedRoute.snapshot.paramMap.get('code');
+    this.code = this.activatedRoute.snapshot.paramMap.get('code');
   }
 
 }
