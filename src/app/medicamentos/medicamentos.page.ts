@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {MedicineService} from '../services/medicine.service';
-
+import {DatabaseService} from '../services/database.service'
 @Component({
   selector: 'app-medicamentos',
   templateUrl: './medicamentos.page.html',
@@ -13,11 +13,13 @@ export class MedicamentosPage implements OnInit {
   private bandera = true;
   private contadorBandera = 0;
   public searchTerm: string = "";
-  constructor(private medicineService:MedicineService) {
+  constructor(private medicineService:MedicineService,private databaseService: DatabaseService) {
+
+    
     this.medicineService.getData().subscribe((res) =>{ //una opcion es enviar el subcribe al service
       this.medicineArrayFinal =res;
       this.setFilteredItems();
-      console.log(this.medicineArray)
+      //console.log(this.medicineArray)
     },(error)=>{console.log(error)})
    }
 

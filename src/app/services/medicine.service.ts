@@ -1,4 +1,5 @@
 import { HttpClient } from '@angular/common/http';
+import { ArrayType } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import {map} from 'rxjs/operators';
 
@@ -9,8 +10,9 @@ import {map} from 'rxjs/operators';
 export class MedicineService {
   url ='http://conasa.dnet.ec/ws/_getSearch_Medicine.ws.php'
   public items: any;
+  public ArrayItems: ArrayType;
   constructor(private http: HttpClient) {
-    this.items = this.getData();
+    this.items = this.getData(); 
   }
 
   getData(){
@@ -19,6 +21,6 @@ export class MedicineService {
     }));
   }
   
-
+ 
 
 }
