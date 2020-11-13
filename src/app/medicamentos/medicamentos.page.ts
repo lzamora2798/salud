@@ -1,31 +1,64 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,OnDestroy} from '@angular/core';
 import {MedicineService} from '../services/medicine.service';
-import {DatabaseService} from '../services/database.service'
+import {DatabaseService} from '../services/database.service';
+import { ToastController } from '@ionic/angular';
+import { Plugins, NetworkStatus, PluginListenerHandle } from '@capacitor/core';
+
+const { Network } = Plugins;
+
 @Component({
   selector: 'app-medicamentos',
   templateUrl: './medicamentos.page.html',
   styleUrls: ['./medicamentos.page.scss'],
 })
-export class MedicamentosPage implements OnInit {
+export class MedicamentosPage implements OnInit ,OnDestroy{
   private medicineArray : any
   private medicineArrayFinal : any
   private numeroItems =0
   private bandera = true;
   private contadorBandera = 0;
   public searchTerm: string = "";
-  constructor(private medicineService:MedicineService,private databaseService: DatabaseService) {
-
-    
-    this.medicineService.getData().subscribe((res) =>{ //una opcion es enviar el subcribe al service
-      this.medicineArrayFinal =res;
-      this.setFilteredItems();
-      //console.log(this.medicineArray)
-    },(error)=>{console.log(error)})
+  networkStatus: NetworkStatus;
+  networkListener: PluginListenerHandle;
+  constructor(private medicineService:MedicineService,
+    private databaseService: DatabaseService,
+    public toastController: ToastController) {
+   
+      this.medicineService.getData().subscribe((res) =>{ //una opcion es enviar el subcribe al service
+        this.medicineArrayFinal =res;
+      
+        this.setFilteredItems();
+        //console.log(this.medicineArray)
+      },(error)=>{console.log(error)})
+      
+     
    }
 
-  ngOnInit() {
+  async ngOnInit() {
     
+    this.networkListener = Network.addListener('networkStatusChange', (status) => {
+      console.log("Network status changed", status);
+      this.networkStatus = status;
+    });
 
+    this.networkStatus = await Network.getStatus();
+    
+  
+
+  }
+
+  ngOnDestroy() {
+    this.networkListener.remove();
+  }
+
+  
+
+  async presentToast(texto:string) {
+    const toast = await this.toastController.create({
+      message: texto,
+      duration: 2000
+    });
+    toast.present();
   }
 
   mostrarFiltro(){
