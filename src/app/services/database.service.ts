@@ -16,7 +16,12 @@ export class DatabaseService {
       this.sqlite.create({
         name: 'studentsDatabase.db',
         location: 'default'
-      })
+      }).then((db: SQLiteObject) => {
+        this.db = db;
+        let sql1 = "CREATE TABLE IF NOT EXISTS medicinas (code TEXT PRIMARY KEY, concentration TEXT, description TEXT, dosage_image TEXT, form TEXT, group TEXT, record TEXT, subgroup TEXT, subtype TEXT);";
+        this.db.executeSql(sql1, []);
+      
+    });
     });
 
           
@@ -24,9 +29,8 @@ export class DatabaseService {
   }
   CreateMedicine(code:string, concentration:string,description:string,dosage_image:string,form:string,group:string,record:string,subgroup:string,subtype:string){
     return new Promise ((resolve, reject) => {
-      let sql1 = "CREATE TABLE IF NOT EXISTS medicinas (code INTEGER PRIMARY KEY AUTOINCREMENT, concentration TEXT, description TEXT, dosage_image TEXT, form TEXT, group TEXT, record TEXT, subgroup TEXT, subtype TEXT);";
+      
       let sql = "INSERT INTO medicinas (code, concentration, description,dosage_image,form,group,record,subgroup,subtype) VALUES (?, ?, ?,?, ?, ?,?, ?, ?);";
-      this.db.executeSql(sql1, []);
       this.db.executeSql(sql, [ code,concentration,description,dosage_image,form,group,record,subgroup,subtype]).then((data) =>{
         resolve(data);
       }, (error) => {
@@ -36,8 +40,9 @@ export class DatabaseService {
   }
 
   ResiveArray(array:Array<any>){
-    for (let equipo of array){
-        console.log(equipo)
+    for (let medicine of array){
+        this.CreateMedicine(medicine.code,medicine.concentration,medicine.description,
+          medicine.dosage_image,medicine.form,medicine.group,medicine.record,medicine.subgroup,medicine.subtype)
     }
   }
 

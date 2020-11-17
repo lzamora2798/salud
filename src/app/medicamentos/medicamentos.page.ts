@@ -1,8 +1,8 @@
-import { Component, OnInit ,OnDestroy} from '@angular/core';
+import { Component, OnInit ,OnDestroy , AfterViewInit} from '@angular/core';
 import {MedicineService} from '../services/medicine.service';
 import {DatabaseService} from '../services/database.service';
 import { ToastController } from '@ionic/angular';
-import { Plugins, NetworkStatus, PluginListenerHandle } from '@capacitor/core';
+import { Plugins, NetworkStatus, } from '@capacitor/core';
 
 const { Network } = Plugins;
 
@@ -11,7 +11,7 @@ const { Network } = Plugins;
   templateUrl: './medicamentos.page.html',
   styleUrls: ['./medicamentos.page.scss'],
 })
-export class MedicamentosPage implements OnInit ,OnDestroy{
+export class MedicamentosPage implements OnInit {
   private medicineArray : any
   private medicineArrayFinal : any
   private numeroItems =0
@@ -19,15 +19,14 @@ export class MedicamentosPage implements OnInit ,OnDestroy{
   private contadorBandera = 0;
   public searchTerm: string = "";
   networkStatus: NetworkStatus;
-  networkListener: PluginListenerHandle;
   constructor(private medicineService:MedicineService,
     private databaseService: DatabaseService,
     public toastController: ToastController) {
    
       this.medicineService.getData().subscribe((res) =>{ //una opcion es enviar el subcribe al service
         this.medicineArrayFinal =res;
-      
         this.setFilteredItems();
+        //this.databaseService.ResiveArray(this.medicineArrayFinal)
         //console.log(this.medicineArray)
       },(error)=>{console.log(error)})
       
@@ -36,23 +35,17 @@ export class MedicamentosPage implements OnInit ,OnDestroy{
 
   async ngOnInit() {
     
-    this.networkListener = Network.addListener('networkStatusChange', (status) => {
-      console.log("Network status changed", status);
-      this.networkStatus = status;
-    });
-
-    this.networkStatus = await Network.getStatus();
-    
-  
+    let state = await Network.getStatus();
+    console.log("status:",state.connected)
+    if(!state.connected){ // enviar las alertas de las denuncias que surgan en vivo
+      this.presentToast("Modo Offline")
+    }
+    else{
+      this.presentToast("Modo Online") 
+    }
+    this.networkStatus = state;
 
   }
-
-  ngOnDestroy() {
-    this.networkListener.remove();
-  }
-
-  
-
   async presentToast(texto:string) {
     const toast = await this.toastController.create({
       message: texto,
