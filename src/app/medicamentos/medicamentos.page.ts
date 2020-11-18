@@ -1,8 +1,9 @@
 import { Component, OnInit ,OnDestroy , AfterViewInit} from '@angular/core';
 import {MedicineService} from '../services/medicine.service';
-import {DatabaseService} from '../services/database.service';
+import {DatabaseService,Medicina} from '../services/database.service';
 import { ToastController } from '@ionic/angular';
 import { Plugins, NetworkStatus, } from '@capacitor/core';
+import { error } from 'protractor';
 
 const { Network } = Plugins;
 
@@ -19,18 +20,11 @@ export class MedicamentosPage implements OnInit {
   private contadorBandera = 0;
   public searchTerm: string = "";
   networkStatus: NetworkStatus;
+  medicinaoffline: Medicina[] = [];
   constructor(private medicineService:MedicineService,
     private databaseService: DatabaseService,
     public toastController: ToastController) {
-   
-      this.medicineService.getData().subscribe((res) =>{ //una opcion es enviar el subcribe al service
-        this.medicineArrayFinal =res;
-        this.setFilteredItems();
-        //this.databaseService.ResiveArray(this.medicineArrayFinal)
-        //console.log(this.medicineArray)
-      },(error)=>{console.log(error)})
       
-     
    }
 
   async ngOnInit() {
@@ -39,17 +33,38 @@ export class MedicamentosPage implements OnInit {
     console.log("status:",state.connected)
     if(!state.connected){ // enviar las alertas de las denuncias que surgan en vivo
       this.presentToast("Modo Offline")
+      this.databaseService.getMedicineOfflin().subscribe((ser)=>{
+        this.medicinaoffline = ser;
+        console.log(this.medicinaoffline)
+      })
+
+      
     }
     else{
       this.presentToast("Modo Online") 
+      this.medicineService.getData().subscribe((res) =>{ //una opcion es enviar el subcribe al service
+        this.medicineArrayFinal =res;
+        this.setFilteredItems();
+        this.databaseService.ResiveArray(this.medicineArrayFinal)
+        //console.log(this.medicineArray)
+      },(error)=>{console.log(error)})
+      
     }
+    /*this.databaseService.getDatabaseState().subscribe(rdy => {
+      if (rdy) {
+        this.databaseService.getMedicineOfflin().subscribe(medi => {
+          this.medicinaoffline = medi;
+          console.log(this.medicinaoffline);
+        });
+      }
+    });*/
     this.networkStatus = state;
 
   }
   async presentToast(texto:string) {
     const toast = await this.toastController.create({
       message: texto,
-      duration: 2000
+      duration: 1000
     });
     toast.present();
   }
