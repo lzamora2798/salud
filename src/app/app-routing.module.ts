@@ -14,7 +14,7 @@ const routes: Routes = [
     
   },
   {
-    path: 'medicine/:code',
+    path: 'medicine/:record',
     loadChildren: () => import('./medicine/medicine.module').then( m => m.MedicinePageModule)
     },
    

@@ -9,7 +9,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content *ngIf="info">
 <div class="general">
   <div class="tituloCentrado">
     <ion-label >
@@ -18,13 +18,13 @@
       REGISTRO TERAPEUTICO
     </ion-label>
   </div>
-  <ion-grid>
+  <ion-grid >
     <ion-row>
       <ion-col class="col1">
         <span>Código ATC</span>
       </ion-col>
       <ion-col class="col2">
-        <span>{{code}}</span>
+        <span>{{info.code}}</span>
       </ion-col>
     </ion-row>
     <ion-row>
@@ -32,7 +32,7 @@
         <span>DCI:</span>
       </ion-col>
       <ion-col class="col2">
-        <span>{{code}}</span>
+        <span [innerHTML]="info.description"></span>
       </ion-col>
     </ion-row>
     <ion-row>
@@ -40,7 +40,7 @@
         <span>Forma Farmacéutica:</span>
       </ion-col>
       <ion-col class="col2">
-        <span>{{code}}</span>
+        <span>{{info.form}}</span>
       </ion-col>
     </ion-row>
     <ion-row>
@@ -48,7 +48,7 @@
         <span>Concentración:</span>
       </ion-col>
       <ion-col class="col2">
-        <span>{{code}}</span>
+        <span [innerHTML]="info.concentration"></span>
       </ion-col>
     </ion-row>
     <ion-row>
@@ -56,7 +56,7 @@
         <span>Nivel de Prescripción:</span>
       </ion-col>
       <ion-col class="col2">
-        <span>{{code}}</span>
+        <span [innerHTML]="info.pres" ></span>
       </ion-col>
     </ion-row>
     <ion-row>
@@ -64,7 +64,7 @@
         <span>Nivel de Atención:</span>
       </ion-col>
       <ion-col class="col2">
-        <span>{{code}}</span>
+        <span>---NA---</span>
       </ion-col>
     </ion-row>
     <ion-row>
@@ -72,20 +72,49 @@
         <span>Via administración</span>
       </ion-col>
       <ion-col class="col2">
-        <span>{{code}}</span>
+        <span [innerHTML]="info.admin"></span>
       </ion-col>
     </ion-row>
   </ion-grid>
 </div>
-
-<ion-button expand="full" color="tertiary">PICTOGRAMAS</ion-button>
-<ion-button expand="full" color="tertiary">INDICACIONES</ion-button>
-<ion-button expand="full" color="tertiary">DOSIFICACIÓN</ion-button>
-<ion-button expand="full" color="tertiary">REACCIONES ADVERSAS</ion-button>
-<ion-button expand="full" color="tertiary">CONTRAINDICACIONES</ion-button>
-<ion-button expand="full" color="tertiary">PRECAUCIONES</ion-button>
-<ion-button expand="full" color="tertiary">INTERACCIONES</ion-button>
-<ion-button expand="full" color="tertiary">USO EN</ion-button>
-<ion-button expand="full" color="tertiary">OBSERVACIONES</ion-button>
-<ion-button expand="full" color="tertiary">TRABAJOS CITADOS</ion-button>
+<ion-button expand="full" color="tertiary" (click)="clickBotonesInformativos('picto')">PICTOGRAMAS</ion-button>
+<div [hidden] = "banderas.picto">
+  <span>PONERIMAGENES</span>
+</div>
+<ion-button expand="full" color="tertiary" (click)="clickBotonesInformativos('indicaciones')">INDICACIONES</ion-button>
+<div [hidden] = "banderas.indicaciones">
+  <span [innerHTML]="info.indications"></span>
+</div>
+<ion-button expand="full" color="tertiary" (click)="clickBotonesInformativos('dosificacion')">DOSIFICACIÓN</ion-button>
+<div [hidden] = "banderas.dosificacion" >
+  <ion-img [src]="'http://conasa.dnet.ec/admin/archivos/conasa/_dosificacion/'+ info.dosage_image"></ion-img>
+</div>
+<ion-button expand="full" color="tertiary"  (click)="clickBotonesInformativos('reacciones')">REACCIONES ADVERSAS</ion-button>
+<div [hidden] = "banderas.reacciones">
+  <span [innerHTML]="info.adverse_reaction"></span>
+</div>
+<ion-button expand="full" color="tertiary"  (click)="clickBotonesInformativos('contraindica')">CONTRAINDICACIONES</ion-button>
+<div [hidden] = "banderas.contraindica">
+  <span [innerHTML]="info.contraindications"></span>
+</div>
+<ion-button expand="full" color="tertiary"  (click)="clickBotonesInformativos('precauciones')">PRECAUCIONES</ion-button>
+<div [hidden] = "banderas.precauciones">
+  <span  [innerHTML]="info.precautions"></span>
+</div>
+<ion-button expand="full" color="tertiary"  (click)="clickBotonesInformativos('interaccion')">INTERACCIONES</ion-button>
+<div [hidden] = "banderas.interaccion">
+  <span  [innerHTML]="info.interactions"></span>
+</div>
+<ion-button expand="full" color="tertiary"  (click)="clickBotonesInformativos('usoen')">USO EN</ion-button>
+<div [hidden] = "banderas.usoen">
+  <span [innerHTML]="info.use"></span>
+</div>
+<ion-button expand="full" color="tertiary"  (click)="clickBotonesInformativos('observaciones')">OBSERVACIONES</ion-button>
+<div [hidden] = "banderas.observaciones">
+  <span  [innerHTML]="info.observations"></span>
+</div>
+<ion-button expand="full" color="tertiary"  (click)="clickBotonesInformativos('citados')">TRABAJOS CITADOS</ion-button>
+<div [hidden] = "banderas.citados">
+  <span  [innerHTML]="info.bibliography"></span>
+</div>
 </ion-content>

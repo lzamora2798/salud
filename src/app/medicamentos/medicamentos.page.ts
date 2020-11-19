@@ -39,6 +39,7 @@ export class MedicamentosPage implements OnInit {
       this.medicineService.getData().subscribe((res) =>{ //una opcion es enviar el subcribe al service
         this.medicineArrayFinal =res;
         this.setFilteredItems();
+        console.log(this.medicineArray)
         //this.databaseService.ResiveArray(this.medicineArrayFinal)
  
       },(error)=>{console.log(error)})
@@ -58,11 +59,7 @@ export class MedicamentosPage implements OnInit {
   async presentToast(texto:string) {
     const toast = await this.toastController.create({
       message: texto,
-<<<<<<< HEAD
-      duration: 1500
-=======
       duration: 1000
->>>>>>> 785aec2b212ddd3d962dbe3c0e883865fca8b671
     });
     toast.present();
   }

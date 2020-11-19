@@ -9,6 +9,7 @@ import {map} from 'rxjs/operators';
 })
 export class MedicineService {
   url ='http://conasa.dnet.ec/ws/_getSearch_Medicine.ws.php'
+  url2 = 'http://conasa.dnet.ec/ws/_getAll_Detail.ws.php'
   public items: any;
   public ArrayItems: ArrayType;
   constructor(private http: HttpClient) {
@@ -18,6 +19,12 @@ export class MedicineService {
   getData(){
     return this.http.get(`${this.url}`).pipe(map( action =>{
         return action['result'];
+    }));
+  }
+
+  getDataEachMedicine(record : string){
+    return this.http.get(`${this.url2}?_record=${record}`).pipe(map( action =>{
+        return action['result']['0'];
     }));
   }
   
