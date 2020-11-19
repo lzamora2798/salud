@@ -1,8 +1,7 @@
 {
   "name": "cnmbecuador",
   "integrations": {
-    "capacitor": {},
-    "cordova": {}
+    "capacitor": {}
   },
   "type": "angular"
 }

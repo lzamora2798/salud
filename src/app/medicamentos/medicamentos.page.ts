@@ -1,6 +1,6 @@
 import { Component, OnInit ,OnDestroy , AfterViewInit} from '@angular/core';
 import {MedicineService} from '../services/medicine.service';
-import {DatabaseService} from '../services/database.service';
+//import {DatabaseService,Medicina} from '../services/database.service';
 import { ToastController } from '@ionic/angular';
 import { Plugins, NetworkStatus, } from '@capacitor/core';
 
@@ -19,18 +19,11 @@ export class MedicamentosPage implements OnInit {
   private contadorBandera = 0;
   public searchTerm: string = "";
   networkStatus: NetworkStatus;
+  //medicinaoffline: Medicina[] = [];
   constructor(private medicineService:MedicineService,
-    private databaseService: DatabaseService,
+    //private databaseService: DatabaseService,
     public toastController: ToastController) {
-   
-      this.medicineService.getData().subscribe((res) =>{ //una opcion es enviar el subcribe al service
-        this.medicineArrayFinal =res;
-        this.setFilteredItems();
-        //this.databaseService.ResiveArray(this.medicineArrayFinal)
-        //console.log(this.medicineArray)
-      },(error)=>{console.log(error)})
       
-     
    }
 
   async ngOnInit() {
@@ -39,17 +32,37 @@ export class MedicamentosPage implements OnInit {
     console.log("status:",state.connected)
     if(!state.connected){ // enviar las alertas de las denuncias que surgan en vivo
       this.presentToast("Modo Offline")
+      
     }
     else{
       this.presentToast("Modo Online") 
+      this.medicineService.getData().subscribe((res) =>{ //una opcion es enviar el subcribe al service
+        this.medicineArrayFinal =res;
+        this.setFilteredItems();
+        //this.databaseService.ResiveArray(this.medicineArrayFinal)
+ 
+      },(error)=>{console.log(error)})
+      
     }
+    /*this.databaseService.getDatabaseState().subscribe(rdy => {
+      if (rdy) {
+        this.databaseService.getMedicineOfflin().subscribe(medi => {
+          this.medicinaoffline = medi;
+          console.log(this.medicinaoffline);
+        });
+      }
+    });*/
     this.networkStatus = state;
 
   }
   async presentToast(texto:string) {
     const toast = await this.toastController.create({
       message: texto,
+<<<<<<< HEAD
       duration: 1500
+=======
+      duration: 1000
+>>>>>>> 785aec2b212ddd3d962dbe3c0e883865fca8b671
     });
     toast.present();
   }
