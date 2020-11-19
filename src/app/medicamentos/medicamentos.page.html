@@ -40,8 +40,8 @@
         <ion-row>
       <ion-label class="codigoLetra">
         {{medicina.code}}
-        <p class="descripLetra">
-          {{medicina.description}}
+        <p class="descripLetra" [innerHTML]="medicina.description">
+          
         </p>
       </ion-label>
       </ion-row>
@@ -50,7 +50,7 @@
         {{ medicina.form }}
       </ion-col>
       <ion-col>
-        <div>  {{medicina.concentration}}</div>
+        <div [innerHTML]="medicina.concentration"> </div>
       </ion-col>
     </ion-row>
     </ion-grid>
