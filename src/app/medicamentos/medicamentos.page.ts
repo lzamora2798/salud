@@ -49,7 +49,7 @@ export class MedicamentosPage implements OnInit {
   async presentToast(texto:string) {
     const toast = await this.toastController.create({
       message: texto,
-      duration: 2000
+      duration: 1500
     });
     toast.present();
   }
