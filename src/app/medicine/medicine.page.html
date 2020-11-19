@@ -78,8 +78,12 @@
   </ion-grid>
 </div>
 <ion-button expand="full" color="tertiary" (click)="clickBotonesInformativos('picto')">PICTOGRAMAS</ion-button>
-<div [hidden] = "banderas.picto">
-  <span>PONERIMAGENES</span>
+<div class="row1" [hidden] = "banderas.picto">
+  
+  
+  <ion-img  *ngFor="let picto of pictogramasArray" style="height: 100px; width: 100px; display: inline-block;"
+  [src]="'http://conasa.dnet.ec/admin/archivos/conasa/_pictogramas/'+ picto"></ion-img>
+  
 </div>
 <ion-button expand="full" color="tertiary" (click)="clickBotonesInformativos('indicaciones')">INDICACIONES</ion-button>
 <div [hidden] = "banderas.indicaciones">
@@ -87,7 +91,10 @@
 </div>
 <ion-button expand="full" color="tertiary" (click)="clickBotonesInformativos('dosificacion')">DOSIFICACIÓN</ion-button>
 <div [hidden] = "banderas.dosificacion" >
-  <ion-img [src]="'http://conasa.dnet.ec/admin/archivos/conasa/_dosificacion/'+ info.dosage_image"></ion-img>
+  
+  <ion-img [hidden]="!dosage_flag" [src]="'http://conasa.dnet.ec/admin/archivos/conasa/_dosificacion/'+ info.dosage_image"></ion-img>
+  <div [hidden]="dosage_flag" [innerHTML]="info.dosage"></div>
+
 </div>
 <ion-button expand="full" color="tertiary"  (click)="clickBotonesInformativos('reacciones')">REACCIONES ADVERSAS</ion-button>
 <div [hidden] = "banderas.reacciones">
