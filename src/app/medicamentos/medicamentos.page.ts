@@ -1,9 +1,8 @@
 import { Component, OnInit ,OnDestroy , AfterViewInit} from '@angular/core';
 import {MedicineService} from '../services/medicine.service';
-import {DatabaseService,Medicina} from '../services/database.service';
+//import {DatabaseService,Medicina} from '../services/database.service';
 import { ToastController } from '@ionic/angular';
 import { Plugins, NetworkStatus, } from '@capacitor/core';
-import { error } from 'protractor';
 
 const { Network } = Plugins;
 
@@ -20,9 +19,9 @@ export class MedicamentosPage implements OnInit {
   private contadorBandera = 0;
   public searchTerm: string = "";
   networkStatus: NetworkStatus;
-  medicinaoffline: Medicina[] = [];
+  //medicinaoffline: Medicina[] = [];
   constructor(private medicineService:MedicineService,
-    private databaseService: DatabaseService,
+    //private databaseService: DatabaseService,
     public toastController: ToastController) {
       
    }
@@ -33,11 +32,6 @@ export class MedicamentosPage implements OnInit {
     console.log("status:",state.connected)
     if(!state.connected){ // enviar las alertas de las denuncias que surgan en vivo
       this.presentToast("Modo Offline")
-      this.databaseService.getMedicineOfflin().subscribe((ser)=>{
-        this.medicinaoffline = ser;
-        console.log(this.medicinaoffline)
-      })
-
       
     }
     else{
@@ -45,8 +39,8 @@ export class MedicamentosPage implements OnInit {
       this.medicineService.getData().subscribe((res) =>{ //una opcion es enviar el subcribe al service
         this.medicineArrayFinal =res;
         this.setFilteredItems();
-        this.databaseService.ResiveArray(this.medicineArrayFinal)
-        //console.log(this.medicineArray)
+        //this.databaseService.ResiveArray(this.medicineArrayFinal)
+ 
       },(error)=>{console.log(error)})
       
     }
