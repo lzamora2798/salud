@@ -64,7 +64,9 @@
         <span>Nivel de Atención:</span>
       </ion-col>
       <ion-col class="col2">
-        <span>---NA---</span>
+        <span [hidden]="level1" style="display: inline-block; padding-right:5px;"> I NA</span>
+        <span [hidden]="level2" style="display: inline-block; padding-right:5px"> II NA</span>
+        <span [hidden]="level3" style="display: inline-block; padding-right:5px"> III NA</span>
       </ion-col>
     </ion-row>
     <ion-row>

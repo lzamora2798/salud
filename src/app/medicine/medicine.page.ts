@@ -26,6 +26,9 @@ export class MedicinePage implements OnInit {
 
   private pictogramasArray : any;
   private dosage_flag :boolean;
+  private level1=true
+  private level2=true
+  private level3=true
   constructor(private activatedRoute: ActivatedRoute,
     private medicineService:MedicineService) { }
 
@@ -38,7 +41,19 @@ export class MedicinePage implements OnInit {
         this.dosage_flag = true
       }else{
         this.dosage_flag = false
-      }
+      }   
+
+      console.log(res["level_1"].toString(),res["level_2"].toString(),res["level_3"].toString())
+
+      if(res["level_1"] == ('x')){
+        this.level1=false
+      }   
+      if(res["level_2"] == 'x')
+        this.level2=false
+      if(res["level_3"] == 'x')
+        this.level3=false
+
+
       //console.log(this.pictogramasArray)
       console.log(this.info)
       //this.databaseService.ResiveArray(this.medicineArrayFinal)
