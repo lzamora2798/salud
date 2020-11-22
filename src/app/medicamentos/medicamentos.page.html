@@ -19,11 +19,24 @@
     <ion-button (click)="mostrarFiltro()" color="secondary"><ion-icon  size="small" name="filter"></ion-icon></ion-button>
     <ion-label > Resultado {{numeroItems}} Registros </ion-label>
   </div>
-  <div [hidden] = "bandera">
-    <ion-item>
-      <ion-label position="stacked">Grupo Anatomico</ion-label>
-      <ion-input placeholder="placeholder"></ion-input>
-    </ion-item>
+  <div [hidden] = "bandera" class="hidediv">
+    <div>
+      <ion-label>Grupo Anatomico</ion-label>
+      <ion-select class="select-full-width" [(ngModel)]="anatomico" (ngModelChange)="determinarGrupo()">
+        <ion-select-option [value]=vacio class="ion-text-wrap">SELECCIONE</ion-select-option>
+        <ion-select-option [value]=resultado.group class="ion-text-wrap"  *ngFor="let resultado of grupo_anatomico">{{resultado.description}}</ion-select-option>
+      </ion-select>
+    </div>
+    <div [hidden] = "flag_terapeutico">
+      <ion-label>Grupo Terapeutico</ion-label>
+      <ion-item>
+        <ion-button color="danger" style="padding-right:10px;"><ion-icon size="small" name="close"></ion-icon></ion-button>
+        <ion-select class="select-full-width" [(ngModel)]="terapeutico" (ngModelChange)="determinarGrupoTerapeutico()">
+          <ion-select-option [value]=vacio class="ion-text-wrap">SELECCIONE</ion-select-option>
+          <ion-select-option [value]=resultado.subgroup class="ion-text-wrap"  *ngFor="let resultado of grupo_terapeutico">{{resultado.description}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </div>
     <ion-item>
       <ion-label position="stacked">Frecuente</ion-label>
       <ion-input placeholder="placeholder"></ion-input>

@@ -7,3 +7,12 @@
     margin: 0 auto;
     
   }
+
+ion-grid{
+    ion-row{
+        margin-top: -10px;
+    }
+    span{
+        font-size: small;
+    }
+}

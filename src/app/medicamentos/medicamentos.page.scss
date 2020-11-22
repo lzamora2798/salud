@@ -13,3 +13,17 @@
     color: black;
 }
 
+ion-select-option{
+    font-size: 5px;
+}
+
+.hidediv{
+    margin-top: 3px;
+    ion-label{
+        font-weight: bold;
+        font-size:small;
+    }
+    ion-select{
+        font-size: small;
+    }
+}

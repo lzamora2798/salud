@@ -43,20 +43,15 @@ export class MedicinePage implements OnInit {
         this.dosage_flag = false
       }   
 
-      console.log(res["level_1"].toString(),res["level_2"].toString(),res["level_3"].toString())
-
-      if(res["level_1"] == ('x')){
+      if(res["level_1"] == 'x')
         this.level1=false
-      }   
       if(res["level_2"] == 'x')
         this.level2=false
       if(res["level_3"] == 'x')
         this.level3=false
 
-
-      //console.log(this.pictogramasArray)
       console.log(this.info)
-      //this.databaseService.ResiveArray(this.medicineArrayFinal)
+ 
     },(error)=>{console.log(error)})
 
   }

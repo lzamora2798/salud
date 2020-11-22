@@ -14,10 +14,17 @@ const { Network } = Plugins;
 export class MedicamentosPage implements OnInit {
   private medicineArray : any
   private medicineArrayFinal : any
-  private numeroItems =0
+  private grupo_anatomico : any
+  private grupo_terapeutico : any
+  public searchTerm: string = "";
+  private anatomico :string = "";
+  private terapeutico :string = "";
+  public vacio: string = ""
   private bandera = true;
   private contadorBandera = 0;
-  public searchTerm: string = "";
+  private numeroItems =0
+  
+  public flag_terapeutico = true;
   networkStatus: NetworkStatus;
   //medicinaoffline: Medicina[] = [];
   constructor(private medicineService:MedicineService,
@@ -43,6 +50,10 @@ export class MedicamentosPage implements OnInit {
         //this.databaseService.ResiveArray(this.medicineArrayFinal)
  
       },(error)=>{console.log(error)})
+
+      this.medicineService.getFilter1().subscribe((res)=>{
+        this.grupo_anatomico = res
+      })
       
     }
     /*this.databaseService.getDatabaseState().subscribe(rdy => {
@@ -75,15 +86,44 @@ export class MedicamentosPage implements OnInit {
     }
   }
   setFilteredItems() {
-    this.medicineArray = this.filterItems(this.searchTerm);
+    this.medicineArray = this.filterItems(this.searchTerm,"description");
     this.numeroItems = Object.keys(this.medicineArray).length;
     console.log(this.numeroItems)
   }
+  setFilteredGroup() {
+    this.medicineArray = this.filterItems(this.anatomico,"group");
+    this.numeroItems = Object.keys(this.medicineArray).length;
+  }
+  setFilteredsubGroup() {
+    this.medicineArray = this.filterItems(this.terapeutico,"subgroup");
+    this.numeroItems = Object.keys(this.medicineArray).length;
+  }
 
-  filterItems(searchTerm) {
+  filterItems(searchTerm,clave:string) { //metodo generico para buscar por filtros
     return this.medicineArrayFinal.filter(item => {
-      return item.description.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
+      return item[clave].toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
     });
+  }
+
+
+  determinarGrupo(){
+    console.log(this.anatomico)
+    this.setFilteredGroup();
+    this.flag_terapeutico = false;
+    this.capturarGrupoTerapeutico();
+  }
+
+  capturarGrupoTerapeutico(){
+    this.medicineService.getFilter2(this.anatomico).subscribe((res)=>{
+      this.grupo_terapeutico = res
+    })
+  }
+
+  determinarGrupoTerapeutico(){
+    console.log(this.terapeutico)
+    this.setFilteredsubGroup();
+    //this.flag_terapeutico = false;
+    //this.capturarGrupoTerapeutico();
   }
 
   
