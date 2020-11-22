@@ -37,10 +37,35 @@
         </ion-select>
       </ion-item>
     </div>
-    <ion-item>
-      <ion-label position="stacked">Frecuente</ion-label>
-      <ion-input placeholder="placeholder"></ion-input>
-    </ion-item>
+    <div [hidden] = "flag_subterapeutico">
+      <ion-label>Subgrupo Terapeutico</ion-label>
+      <ion-item>
+        <ion-button color="danger" style="padding-right:10px;"><ion-icon size="small" name="close"></ion-icon></ion-button>
+        <ion-select class="select-full-width" [(ngModel)]="subterapeutico" (ngModelChange)="determinarSubGrupoTerapeutico()">
+          <ion-select-option [value]=vacio class="ion-text-wrap">SELECCIONE</ion-select-option>
+          <ion-select-option [value]=resultado.type class="ion-text-wrap"  *ngFor="let resultado of subgrupo_terapeutico">{{resultado.description}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </div>
+    <div [hidden] = "flag_subquimicoterapeutico">
+      <ion-label>Subgrupo Quimico Terapeutico</ion-label>
+      <ion-item>
+        <ion-button color="danger" style="padding-right:10px;"><ion-icon size="small" name="close"></ion-icon></ion-button>
+        <ion-select class="select-full-width" [(ngModel)]="subquimicoterapeutico" (ngModelChange)="determinarSubGrupoQuimicoTerapeutico()">
+          <ion-select-option [value]=vacio class="ion-text-wrap">SELECCIONE</ion-select-option>
+          <ion-select-option [value]=resultado.subtype class="ion-text-wrap"  *ngFor="let resultado of subgrupoquimico_terapeutico">{{resultado.description}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </div>
+    <div >
+      <ion-label>Frecuente</ion-label>
+      <ion-item>
+        <ion-select class="select-full-width" [(ngModel)]="filtrofrecuente" (ngModelChange)="determinarFrecuentes()">
+          <ion-select-option [value]=vacio class="ion-text-wrap">SELECCIONE</ion-select-option>
+          <ion-select-option [value]=resultado.record class="ion-text-wrap"  *ngFor="let resultado of frecuentes">{{resultado.label}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </div>
   </div>
   <ion-searchbar
   [(ngModel)]="searchTerm"

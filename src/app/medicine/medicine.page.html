@@ -82,10 +82,16 @@
 <ion-button expand="full" color="tertiary" (click)="clickBotonesInformativos('picto')">PICTOGRAMAS</ion-button>
 <div class="row1" [hidden] = "banderas.picto">
   
+  <ion-slides class="slidersOpts" zoom>
+    <ion-slide>
+      <div class="swiper-zoom-container">
+        <ion-img  *ngFor="let picto of pictogramasArray" style="height: 100px; width: 100px; display: inline-block;"
+        [src]="'http://conasa.dnet.ec/admin/archivos/conasa/_pictogramas/'+ picto"></ion-img>      
+      </div>
+    </ion-slide>
+  </ion-slides>
   
-  <ion-img  *ngFor="let picto of pictogramasArray" style="height: 100px; width: 100px; display: inline-block;"
-  [src]="'http://conasa.dnet.ec/admin/archivos/conasa/_pictogramas/'+ picto"></ion-img>
-  
+ 
 </div>
 <ion-button expand="full" color="tertiary" (click)="clickBotonesInformativos('indicaciones')">INDICACIONES</ion-button>
 <div [hidden] = "banderas.indicaciones">

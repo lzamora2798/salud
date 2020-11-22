@@ -16,15 +16,23 @@ export class MedicamentosPage implements OnInit {
   private medicineArrayFinal : any
   private grupo_anatomico : any
   private grupo_terapeutico : any
+  private subgrupo_terapeutico : any
+  private subgrupoquimico_terapeutico : any
+  private frecuentes : any
   public searchTerm: string = "";
   private anatomico :string = "";
   private terapeutico :string = "";
+  private subterapeutico :string = "";
+  private subquimicoterapeutico : string = "";
+  private filtrofrecuente : string = "";
   public vacio: string = ""
   private bandera = true;
   private contadorBandera = 0;
   private numeroItems =0
   
   public flag_terapeutico = true;
+  public flag_subterapeutico = true;
+  public flag_subquimicoterapeutico = true;
   networkStatus: NetworkStatus;
   //medicinaoffline: Medicina[] = [];
   constructor(private medicineService:MedicineService,
@@ -41,7 +49,7 @@ export class MedicamentosPage implements OnInit {
       this.presentToast("Modo Offline")
       
     }
-    else{
+    else{ // cuando si hay conexion online
       this.presentToast("Modo Online") 
       this.medicineService.getData().subscribe((res) =>{ //una opcion es enviar el subcribe al service
         this.medicineArrayFinal =res;
@@ -51,9 +59,8 @@ export class MedicamentosPage implements OnInit {
  
       },(error)=>{console.log(error)})
 
-      this.medicineService.getFilter1().subscribe((res)=>{
-        this.grupo_anatomico = res
-      })
+      this.capturarGrupoAnatomico(); // estos dos filtros se ejecutan al inicio
+      this.capturarFrecuentes();
       
     }
     /*this.databaseService.getDatabaseState().subscribe(rdy => {
@@ -99,11 +106,28 @@ export class MedicamentosPage implements OnInit {
     this.numeroItems = Object.keys(this.medicineArray).length;
   }
 
+  setFilteredType() {
+    this.medicineArray = this.filterItems(this.subterapeutico,"type");
+    this.numeroItems = Object.keys(this.medicineArray).length;
+  }
+
+  setFilteredSubType() {
+    this.medicineArray = this.filterItems(this.subquimicoterapeutico,"subtype");
+    this.numeroItems = Object.keys(this.medicineArray).length;
+  }
+
+  setFilterFrecuente() {
+    this.medicineArray = this.filterItems(this.filtrofrecuente,"record");
+    this.numeroItems = Object.keys(this.medicineArray).length;
+  }
+
   filterItems(searchTerm,clave:string) { //metodo generico para buscar por filtros
     return this.medicineArrayFinal.filter(item => {
       return item[clave].toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
     });
   }
+
+
 
 
   determinarGrupo(){
@@ -113,18 +137,62 @@ export class MedicamentosPage implements OnInit {
     this.capturarGrupoTerapeutico();
   }
 
-  capturarGrupoTerapeutico(){
+ 
+
+  determinarGrupoTerapeutico(){
+    console.log(this.terapeutico)
+    this.setFilteredsubGroup();
+    this.flag_subterapeutico = false;
+    this.capturarSubGrupoTerapeutico();
+  }
+
+  
+  determinarSubGrupoTerapeutico(){
+    console.log(this.subterapeutico)
+    this.setFilteredType();
+    this.flag_subquimicoterapeutico = false;
+    this.capturarSubGrupoQuimicoTerapeutico();
+  }
+
+  determinarSubGrupoQuimicoTerapeutico(){
+    console.log(this.subquimicoterapeutico);
+    this.setFilteredSubType();
+  }
+
+  determinarFrecuentes(){
+    console.log(this.filtrofrecuente)
+    this.setFilterFrecuente();
+  }
+
+  capturarGrupoAnatomico(){ 
+    this.medicineService.getFilter1().subscribe((res)=>{
+      this.grupo_anatomico = res
+    })
+  }
+
+  capturarGrupoTerapeutico(){  //hace llamadas del servicio para el filtro 2 
     this.medicineService.getFilter2(this.anatomico).subscribe((res)=>{
       this.grupo_terapeutico = res
     })
   }
 
-  determinarGrupoTerapeutico(){
-    console.log(this.terapeutico)
-    this.setFilteredsubGroup();
-    //this.flag_terapeutico = false;
-    //this.capturarGrupoTerapeutico();
+  capturarSubGrupoTerapeutico(){  // hace llamadas del servicio para el filtro 3 
+    this.medicineService.getFilter3(this.terapeutico).subscribe((res)=>{
+      this.subgrupo_terapeutico = res
+    })
+  }
+  
+  capturarSubGrupoQuimicoTerapeutico(){  // hace llamadas del servicio para el filtro 3 
+    this.medicineService.getFilter4(this.subterapeutico).subscribe((res)=>{
+      this.subgrupoquimico_terapeutico = res
+    })
+  }
+  
+  capturarFrecuentes(){  // hace llamadas del servicio para el filtro 3 
+    this.medicineService.getFilterF().subscribe((res)=>{
+      this.frecuentes = res
+    })
   }
 
-  
+
 }

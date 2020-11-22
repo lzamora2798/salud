@@ -14,8 +14,15 @@ export class MedicineService {
   filtro2= 'http://conasa.dnet.ec/ws/_getFilter2.ws.php'
   filtro3= 'http://conasa.dnet.ec/ws/_getFilter3.ws.php'
   filtro4= 'http://conasa.dnet.ec/ws/_getFilter4.ws.php'
+  filtroF= 'http://conasa.dnet.ec/ws/_getFilterF.ws.php'
   public items: any;
   public ArrayItems: ArrayType;
+
+  sliderOpts = {
+    zoom :{
+      maxRadio :2
+    }
+  }
   constructor(private http: HttpClient) {
     this.items = this.getData(); 
   }
@@ -44,5 +51,22 @@ export class MedicineService {
     }));
   }
   
+  getFilter3(record:string){
+    return this.http.get(`${this.filtro3}?_subgroup=${record}`).pipe(map( action =>{
+        return action['result'];
+    }));
+  }
+
+  getFilter4(record:string){
+    return this.http.get(`${this.filtro4}?_type=${record}`).pipe(map( action =>{
+        return action['result'];
+    }));
+  }
+
+  getFilterF(){
+    return this.http.get(`${this.filtroF}`).pipe(map( action =>{
+        return action['result'];
+    }));
+  }
 
 }
