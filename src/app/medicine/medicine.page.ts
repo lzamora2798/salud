@@ -64,4 +64,8 @@ export class MedicinePage implements OnInit {
     }
   }
 
+  retroceder(){
+    console.log("retrocede")
+  }
+
 }

@@ -6,6 +6,11 @@
       </ion-button>
     </ion-buttons>
     <ion-title>MEDICAMENTO</ion-title>
+    <ion-buttons slot="end"  routerLink="/medicamentos">
+      <ion-button>
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -81,17 +86,8 @@
 </div>
 <ion-button expand="full" color="tertiary" (click)="clickBotonesInformativos('picto')">PICTOGRAMAS</ion-button>
 <div class="row1" [hidden] = "banderas.picto">
-  
-  <ion-slides class="slidersOpts" zoom>
-    <ion-slide>
-      <div class="swiper-zoom-container">
-        <ion-img  *ngFor="let picto of pictogramasArray" style="height: 100px; width: 100px; display: inline-block;"
-        [src]="'http://conasa.dnet.ec/admin/archivos/conasa/_pictogramas/'+ picto"></ion-img>      
-      </div>
-    </ion-slide>
-  </ion-slides>
-  
- 
+  <ion-img  *ngFor="let picto of pictogramasArray" style="height: 100px; width: 100px; display: inline-block;"
+  [src]="'http://conasa.dnet.ec/admin/archivos/conasa/_pictogramas/'+ picto"></ion-img>      
 </div>
 <ion-button expand="full" color="tertiary" (click)="clickBotonesInformativos('indicaciones')">INDICACIONES</ion-button>
 <div [hidden] = "banderas.indicaciones">
@@ -100,7 +96,13 @@
 <ion-button expand="full" color="tertiary" (click)="clickBotonesInformativos('dosificacion')">DOSIFICACIÓN</ion-button>
 <div [hidden] = "banderas.dosificacion" >
   
-  <ion-img [hidden]="!dosage_flag" [src]="'http://conasa.dnet.ec/admin/archivos/conasa/_dosificacion/'+ info.dosage_image"></ion-img>
+  <div [hidden]="!dosage_flag" >
+      <pinch-zoom>
+        <ion-img [src]="'http://conasa.dnet.ec/admin/archivos/conasa/_dosificacion/'+ info.dosage_image"></ion-img>      
+      </pinch-zoom> 
+  </div>
+  
+  
   <div [hidden]="dosage_flag" [innerHTML]="info.dosage"></div>
 
 </div>

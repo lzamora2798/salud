@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AcuerdoPage implements OnInit {
 
+
+  vidUrl = "http://conasa.dnet.ec/admin/archivos/conasa/_sections/acuerdo.pdf"
   constructor() { }
 
   ngOnInit() {

@@ -4,6 +4,11 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>MEDICAMENTOS</ion-title>
+    <ion-buttons slot="end" (click)="recargarTodo()">
+      <ion-button>
+        <ion-icon name="refresh"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -30,7 +35,7 @@
     <div [hidden] = "flag_terapeutico">
       <ion-label>Grupo Terapeutico</ion-label>
       <ion-item>
-        <ion-button color="danger" style="padding-right:10px;"><ion-icon size="small" name="close"></ion-icon></ion-button>
+        <ion-button (click) ="botonterapeutico()" color="danger" style="padding-right:10px;"><ion-icon size="small" name="close"></ion-icon></ion-button>
         <ion-select class="select-full-width" [(ngModel)]="terapeutico" (ngModelChange)="determinarGrupoTerapeutico()">
           <ion-select-option [value]=vacio class="ion-text-wrap">SELECCIONE</ion-select-option>
           <ion-select-option [value]=resultado.subgroup class="ion-text-wrap"  *ngFor="let resultado of grupo_terapeutico">{{resultado.description}}</ion-select-option>
@@ -40,7 +45,7 @@
     <div [hidden] = "flag_subterapeutico">
       <ion-label>Subgrupo Terapeutico</ion-label>
       <ion-item>
-        <ion-button color="danger" style="padding-right:10px;"><ion-icon size="small" name="close"></ion-icon></ion-button>
+        <ion-button (click)="botonsubterapeutico()" color="danger" style="padding-right:10px;"><ion-icon size="small" name="close"></ion-icon></ion-button>
         <ion-select class="select-full-width" [(ngModel)]="subterapeutico" (ngModelChange)="determinarSubGrupoTerapeutico()">
           <ion-select-option [value]=vacio class="ion-text-wrap">SELECCIONE</ion-select-option>
           <ion-select-option [value]=resultado.type class="ion-text-wrap"  *ngFor="let resultado of subgrupo_terapeutico">{{resultado.description}}</ion-select-option>
@@ -50,7 +55,7 @@
     <div [hidden] = "flag_subquimicoterapeutico">
       <ion-label>Subgrupo Quimico Terapeutico</ion-label>
       <ion-item>
-        <ion-button color="danger" style="padding-right:10px;"><ion-icon size="small" name="close"></ion-icon></ion-button>
+        <ion-button (click)="botonqumicoterapeutico()" color="danger" style="padding-right:10px;"><ion-icon size="small" name="close"></ion-icon></ion-button>
         <ion-select class="select-full-width" [(ngModel)]="subquimicoterapeutico" (ngModelChange)="determinarSubGrupoQuimicoTerapeutico()">
           <ion-select-option [value]=vacio class="ion-text-wrap">SELECCIONE</ion-select-option>
           <ion-select-option [value]=resultado.subtype class="ion-text-wrap"  *ngFor="let resultado of subgrupoquimico_terapeutico">{{resultado.description}}</ion-select-option>

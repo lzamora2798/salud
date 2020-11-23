@@ -194,5 +194,42 @@ export class MedicamentosPage implements OnInit {
     })
   }
 
+  botonqumicoterapeutico(){
+    this.flag_subquimicoterapeutico =true;
+    this.subgrupoquimico_terapeutico = [];
+    this.subquimicoterapeutico = ""
+    this.setFilteredType();
+  }
+
+  botonsubterapeutico(){
+    this.flag_subterapeutico =true;
+    this.subgrupo_terapeutico = [];
+    this.subterapeutico = ""
+    this.botonqumicoterapeutico()
+    this.setFilteredsubGroup();
+  }
+
+  botonterapeutico(){
+    this.flag_terapeutico = true;
+    this.grupo_terapeutico = []
+    this.terapeutico = ""
+    this.botonsubterapeutico()
+    this.setFilteredGroup();
+  }
+
+  recargarTodo(){
+    this.flag_subquimicoterapeutico =true;
+    this.subgrupoquimico_terapeutico = [];
+    this.subquimicoterapeutico = ""
+    this.flag_terapeutico = true;
+    this.grupo_terapeutico = []
+    this.terapeutico = ""
+    this.flag_subterapeutico =true;
+    this.subgrupo_terapeutico = [];
+    this.subterapeutico = ""
+    this.bandera = true;
+    this.searchTerm= ""
+    this.medicineArray = this.medicineArrayFinal
+  }
 
 }
