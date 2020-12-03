@@ -1,7 +1,7 @@
 import { Component, OnInit ,OnDestroy , AfterViewInit} from '@angular/core';
 import {MedicineService} from '../services/medicine.service';
 //import {DatabaseService,Medicina} from '../services/database.service';
-import { ToastController } from '@ionic/angular';
+import { ToastController,LoadingController } from '@ionic/angular';
 import { Plugins, NetworkStatus, } from '@capacitor/core';
 
 const { Network } = Plugins;
@@ -34,15 +34,24 @@ export class MedicamentosPage implements OnInit {
   public flag_subterapeutico = true;
   public flag_subquimicoterapeutico = true;
   networkStatus: NetworkStatus;
-  //medicinaoffline: Medicina[] = [];
+  loadinG:any;
   constructor(private medicineService:MedicineService,
     //private databaseService: DatabaseService,
-    public toastController: ToastController) {
+    public toastController: ToastController,
+    private loadingControler:LoadingController) {
       
    }
 
+   async showLoading(mensaje: string){
+      this.loadinG = await this.loadingControler.create(
+        {message:mensaje
+        }
+      )
+      return this.loadinG.present()
+   }
+
   async ngOnInit() {
-    
+    this.showLoading("Espere") //mesaje del modal de esperar 
     let state = await Network.getStatus();
     console.log("status:",state.connected)
     if(!state.connected){ // enviar las alertas de las denuncias que surgan en vivo
@@ -51,11 +60,15 @@ export class MedicamentosPage implements OnInit {
     }
     else{ // cuando si hay conexion online
       this.presentToast("Modo Online") 
+      
       this.medicineService.getData().subscribe((res) =>{ //una opcion es enviar el subcribe al service
         this.medicineArrayFinal =res;
         this.setFilteredItems();
         console.log(this.medicineArray)
         //this.databaseService.ResiveArray(this.medicineArrayFinal)
+        if (this.medicineArrayFinal){
+          setTimeout(()=>{this.loadinG.dismiss()},500)
+        }
  
       },(error)=>{console.log(error)})
 
@@ -217,7 +230,7 @@ export class MedicamentosPage implements OnInit {
     this.setFilteredGroup();
   }
 
-  recargarTodo(){
+  async recargarTodo(){
     this.flag_subquimicoterapeutico =true;
     this.subgrupoquimico_terapeutico = [];
     this.subquimicoterapeutico = ""
@@ -229,7 +242,9 @@ export class MedicamentosPage implements OnInit {
     this.subterapeutico = ""
     this.bandera = true;
     this.searchTerm= ""
-    this.medicineArray = this.medicineArrayFinal
+    this.numeroItems = Object.keys(this.medicineArray).length;
+    this.medicineArray = await this.medicineArrayFinal
+    
   }
 
 }
