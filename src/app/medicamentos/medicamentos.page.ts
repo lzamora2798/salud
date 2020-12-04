@@ -68,7 +68,7 @@ export class MedicamentosPage implements OnInit {
         console.log(this.medicineArray)
         //this.databaseService.ResiveArray(this.medicineArrayFinal)
         if (this.medicineArrayFinal){
-          setTimeout(()=>{this.loadinG.dismiss()},500)
+          setTimeout(()=>{this.loadinG.dismiss()},1000)
         }
  
       },(error)=>{console.log(error)})
