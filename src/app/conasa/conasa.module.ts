@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
-
+import { PinchZoomModule } from 'ngx-pinch-zoom';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { ConasaPageRoutingModule } from './conasa-routing.module';
 
 import { ConasaPage } from './conasa.page';
@@ -13,7 +14,9 @@ import { ConasaPage } from './conasa.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    ConasaPageRoutingModule
+    ConasaPageRoutingModule,
+    PdfViewerModule,
+    PinchZoomModule
   ],
   declarations: [ConasaPage]
 })

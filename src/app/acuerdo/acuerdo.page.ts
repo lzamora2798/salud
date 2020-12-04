@@ -9,12 +9,10 @@ export class AcuerdoPage  {
 
 
 
- 
-  vidUrl:SafeResourceUrl;
+  pdfSRC : string
   constructor(private domSatizer :DomSanitizer) { 
-
-    this.vidUrl = this.domSatizer.bypassSecurityTrustResourceUrl("http://conasa.dnet.ec/admin/archivos/conasa/_sections/acuerdo.pdf");
-    console.log(this.vidUrl)
+    this.pdfSRC = "assets/pdf/acuerdo.pdf"
+ 
   }
 }
 

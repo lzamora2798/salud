@@ -9,10 +9,11 @@ import { DomSanitizer,SafeResourceUrl} from '@angular/platform-browser'
 export class PresentacionPage {
 
   vidUrl:SafeResourceUrl;
+  pdfSRC:string
   constructor(private domSatizer :DomSanitizer) { 
     // cuando cambie hay que ponerle 
-    this.vidUrl = this.domSatizer.bypassSecurityTrustResourceUrl("http://conasa.dnet.ec/admin/archivos/conasa/_sections/presentacion.pdf");
-    console.log(this.vidUrl)
+    this.pdfSRC = "assets/pdf/presentacion.pdf"
+    
   }
 
 }

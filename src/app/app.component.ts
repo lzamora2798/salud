@@ -43,7 +43,7 @@ export class AppComponent implements OnInit {
       icon: 'information-circle'
     },
     {
-      title: 'conasa.dnet.ec',
+      title: 'Version WEB',
       url: '/paginaweb',
       icon: 'globe'
     }

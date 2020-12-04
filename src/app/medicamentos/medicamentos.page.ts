@@ -29,12 +29,13 @@ export class MedicamentosPage implements OnInit {
   private bandera = true;
   private contadorBandera = 0;
   private numeroItems =0
-  
+  private isOffline = false;
   public flag_terapeutico = true;
   public flag_subterapeutico = true;
   public flag_subquimicoterapeutico = true;
   networkStatus: NetworkStatus;
   loadinG:any;
+  
   constructor(private medicineService:MedicineService,
     //private databaseService: DatabaseService,
     public toastController: ToastController,
@@ -51,16 +52,16 @@ export class MedicamentosPage implements OnInit {
    }
 
   async ngOnInit() {
-    this.showLoading("Espere") //mesaje del modal de esperar 
+    
     let state = await Network.getStatus();
     console.log("status:",state.connected)
     if(!state.connected){ // enviar las alertas de las denuncias que surgan en vivo
       this.presentToast("Modo Offline")
-      
+      this.isOffline = true;
     }
     else{ // cuando si hay conexion online
       this.presentToast("Modo Online") 
-      
+      this.showLoading("Espere") //mesaje del modal de esperar 
       this.medicineService.getData().subscribe((res) =>{ //una opcion es enviar el subcribe al service
         this.medicineArrayFinal =res;
         this.setFilteredItems();
@@ -130,8 +131,14 @@ export class MedicamentosPage implements OnInit {
   }
 
   setFilterFrecuente() {
-    this.medicineArray = this.filterItems(this.filtrofrecuente,"record");
-    this.numeroItems = Object.keys(this.medicineArray).length;
+    //this.medicineArray = this.filterItems(this.filtrofrecuente,"record");
+    
+    this.medicineService.getfamilyFilter(this.filtrofrecuente).subscribe(
+      (res) =>{
+        this.medicineArray = res;
+        this.numeroItems = Object.keys(this.medicineArray).length;
+      })
+    
   }
 
   filterItems(searchTerm,clave:string) { //metodo generico para buscar por filtros

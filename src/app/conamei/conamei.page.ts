@@ -10,11 +10,9 @@ import { DomSanitizer,SafeResourceUrl} from '@angular/platform-browser'
 
 export class ConameiPage {
 
-  vidUrl:SafeResourceUrl;
+  pdfSRC:string;
   constructor(private domSatizer :DomSanitizer) { 
-
-    this.vidUrl = this.domSatizer.bypassSecurityTrustResourceUrl("http://conasa.dnet.ec/admin/archivos/conasa/_sections/conamei.pdf");
-    console.log(this.vidUrl)
+    this.pdfSRC = "assets/pdf/conamei.pdf"
   }
 
 
