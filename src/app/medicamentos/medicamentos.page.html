@@ -17,7 +17,7 @@
   <div class="tituloCentrado">
     <ion-label >
       CONSEJO NACIONAL DE SALUD - CONASA
-      CUADRO NACIONAL DE MEDICAMENTOS BASICOS
+      CUADRO NACIONAL DE MEDICAMENTOS BÁSICOS
     </ion-label>
   </div>
   <div>
@@ -27,10 +27,13 @@
   <div [hidden] = "bandera" class="hidediv">
     <div>
       <ion-label>Grupo Anatomico</ion-label>
+      <ion-item>     
+      <ion-button (click) ="botonanatomico()" color="danger" style="padding-right:10px;"><ion-icon size="small" name="trash"></ion-icon></ion-button>
       <ion-select class="select-full-width" [(ngModel)]="anatomico" (ngModelChange)="determinarGrupo()">
         <ion-select-option [value]=vacio class="ion-text-wrap">SELECCIONE</ion-select-option>
         <ion-select-option [value]=resultado.group class="ion-text-wrap"  *ngFor="let resultado of grupo_anatomico">{{resultado.description}}</ion-select-option>
       </ion-select>
+    </ion-item>
     </div>
     <div [hidden] = "flag_terapeutico">
       <ion-label>Grupo Terapeutico</ion-label>
@@ -56,7 +59,7 @@
       <ion-label>Subgrupo Quimico Terapeutico</ion-label>
       <ion-item>
         <ion-button (click)="botonqumicoterapeutico()" color="danger" style="padding-right:10px;"><ion-icon size="small" name="trash"></ion-icon></ion-button>
-        <ion-select class="select-full-width" [(ngModel)]="subquimicoterapeutico" (ngModelChange)="determinarSubGrupoQuimicoTerapeutico()">
+        <ion-select class="select-full-width"  [(ngModel)]="subquimicoterapeutico" (ngModelChange)="determinarSubGrupoQuimicoTerapeutico()">
           <ion-select-option [value]=vacio class="ion-text-wrap">SELECCIONE</ion-select-option>
           <ion-select-option [value]=resultado.subtype class="ion-text-wrap"  *ngFor="let resultado of subgrupoquimico_terapeutico">{{resultado.description}}</ion-select-option>
         </ion-select>
@@ -65,6 +68,7 @@
     <div >
       <ion-label>Frecuente</ion-label>
       <ion-item>
+        <ion-button (click)="botonfiltroterapeutico()" color="danger" style="padding-right:10px;"><ion-icon size="small" name="trash"></ion-icon></ion-button>
         <ion-select class="select-full-width" [(ngModel)]="filtrofrecuente" (ngModelChange)="determinarFrecuentes()">
           <ion-select-option [value]=vacio class="ion-text-wrap">SELECCIONE</ion-select-option>
           <ion-select-option [value]=resultado.record class="ion-text-wrap"  *ngFor="let resultado of frecuentes">{{resultado.label}}</ion-select-option>
@@ -78,10 +82,8 @@
   placeholder="Buscar">
   </ion-searchbar>
 </div>
-<div *ngIf="isoffline">
-  <ion-icon size="large" name="warning">OFFLINE</ion-icon>
-</div>
- <ion-list>
+
+ <ion-list >
    <ion-item *ngFor="let medicina of medicineArray" routerLink= "{{'/medicine/' + medicina.record}}">
       <ion-grid>
         <ion-row>

@@ -1,8 +1,7 @@
 import { Component, OnInit ,OnDestroy , AfterViewInit} from '@angular/core';
 import {MedicineService} from '../services/medicine.service';
-//import {DatabaseService,Medicina} from '../services/database.service';
 import { ToastController,LoadingController } from '@ionic/angular';
-import { Plugins, NetworkStatus, } from '@capacitor/core';
+import { Plugins, NetworkStatus } from '@capacitor/core';
 
 const { Network } = Plugins;
 
@@ -12,79 +11,85 @@ const { Network } = Plugins;
   styleUrls: ['./medicamentos.page.scss'],
 })
 export class MedicamentosPage implements OnInit {
-  private medicineArray : any
-  private medicineArrayFinal : any
-  private grupo_anatomico : any
-  private grupo_terapeutico : any
-  private subgrupo_terapeutico : any
-  private subgrupoquimico_terapeutico : any
-  private frecuentes : any
+  public medicineArray : any
+  public medicineArrayFinal : any
+  public grupo_anatomico : any
+  public grupo_terapeutico : any
+  public subgrupo_terapeutico : any
+  public subgrupoquimico_terapeutico : any
+  public frecuentes : any
   public searchTerm: string = "";
-  private anatomico :string = "";
-  private terapeutico :string = "";
-  private subterapeutico :string = "";
-  private subquimicoterapeutico : string = "";
-  private filtrofrecuente : string = "";
+  public anatomico :string = "";
+  public terapeutico :string = "";
+  public subterapeutico :string = "";
+  public subquimicoterapeutico : string = "";
+  public filtrofrecuente : string = "";
   public vacio: string = ""
-  private bandera = true;
+  public bandera = true;
   private contadorBandera = 0;
-  private numeroItems =0
-  private isOffline = false;
+  public numeroItems =0
+  public isOffline = false;
   public flag_terapeutico = true;
   public flag_subterapeutico = true;
   public flag_subquimicoterapeutico = true;
   networkStatus: NetworkStatus;
-  loadinG:any;
+  // loadinG: any;
   
   constructor(private medicineService:MedicineService,
     //private databaseService: DatabaseService,
     public toastController: ToastController,
-    private loadingControler:LoadingController) {
+    public loadingControler:LoadingController) {
       
    }
-
-   async showLoading(mensaje: string){
-      this.loadinG = await this.loadingControler.create(
-        {message:mensaje
-        }
-      )
-      return this.loadinG.present()
+   async showLoading(mensaje: string){   
+    const loadinG = await this.loadingControler.create(
+      {message:mensaje}
+    );
+      loadinG.present()
+      return loadinG
    }
 
   async ngOnInit() {
-    
     let state = await Network.getStatus();
-    console.log("status:",state.connected)
+    this.networkStatus = state;
+    console.log("status:",state.connected);
+    const loadingG = await this.showLoading("espere...");
     if(!state.connected){ // enviar las alertas de las denuncias que surgan en vivo
       this.presentToast("Modo Offline")
-      this.isOffline = true;
+      //this.showLoading("Espere") //mesaje del modal de esperar 
+      this.medicineService.getOfflinedata('main').then((data)=>{
+        console.log("data",data)
+        this.medicineArrayFinal =data;
+        this.setFilteredItems();
+        
+        //if (this.medicineArrayFinal){}
+      },(error)=>{
+        console.log(error)
+      }).finally(()=>{
+        setTimeout(()=>{loadingG.dismiss()},500)
+      });
+      this.capturarGrupoAnatomico();          
     }
     else{ // cuando si hay conexion online
       this.presentToast("Modo Online") 
-      this.showLoading("Espere") //mesaje del modal de esperar 
+      //this.showLoading("Espere") //mesaje del modal de esperar 
       this.medicineService.getData().subscribe((res) =>{ //una opcion es enviar el subcribe al service
         this.medicineArrayFinal =res;
         this.setFilteredItems();
         console.log(this.medicineArray)
         //this.databaseService.ResiveArray(this.medicineArrayFinal)
         if (this.medicineArrayFinal){
-          setTimeout(()=>{this.loadinG.dismiss()},1000)
+          setTimeout(()=>{loadingG.dismiss()},500)
         }
  
       },(error)=>{console.log(error)})
-
+     
+     
       this.capturarGrupoAnatomico(); // estos dos filtros se ejecutan al inicio
       this.capturarFrecuentes();
       
     }
-    /*this.databaseService.getDatabaseState().subscribe(rdy => {
-      if (rdy) {
-        this.databaseService.getMedicineOfflin().subscribe(medi => {
-          this.medicinaoffline = medi;
-          console.log(this.medicinaoffline);
-        });
-      }
-    });*/
+
     this.networkStatus = state;
 
   }
@@ -132,13 +137,20 @@ export class MedicamentosPage implements OnInit {
 
   setFilterFrecuente() {
     //this.medicineArray = this.filterItems(this.filtrofrecuente,"record");
-    
+    if(this.networkStatus.connected){
     this.medicineService.getfamilyFilter(this.filtrofrecuente).subscribe(
       (res) =>{
         this.medicineArray = res;
         this.numeroItems = Object.keys(this.medicineArray).length;
+        this.medicineService.saveGrupoTerapeuticoOffline(this.filtrofrecuente,res)
       })
-    
+    }
+    else{
+      this.medicineService.getOfflinedata(this.filtrofrecuente).then((res)=>{
+        this.medicineArray=res;
+        this.numeroItems = Object.keys(this.medicineArray).length;
+      }) 
+    }
   }
 
   filterItems(searchTerm,clave:string) { //metodo generico para buscar por filtros
@@ -185,27 +197,58 @@ export class MedicamentosPage implements OnInit {
   }
 
   capturarGrupoAnatomico(){ 
-    this.medicineService.getFilter1().subscribe((res)=>{
-      this.grupo_anatomico = res
-    })
+    if(this.networkStatus.connected){
+      this.medicineService.getFilter1().subscribe((res)=>{
+        this.grupo_anatomico = res
+      })
+    }else{
+      this.medicineService.getOfflinedata('filtro1').then((res)=>{
+        this.grupo_anatomico=res;
+      })
+    }
+    
   }
 
   capturarGrupoTerapeutico(){  //hace llamadas del servicio para el filtro 2 
-    this.medicineService.getFilter2(this.anatomico).subscribe((res)=>{
-      this.grupo_terapeutico = res
-    })
+    if(this.networkStatus.connected){
+      this.medicineService.getFilter2(this.anatomico).subscribe((res)=>{
+        this.grupo_terapeutico = res
+        this.medicineService.saveGrupoTerapeuticoOffline(this.anatomico,res);
+      })
+    }else{
+      this.medicineService.getOfflinedata(this.anatomico).then((res)=>{
+        this.grupo_terapeutico=res;
+      })
+    }
+    
   }
 
-  capturarSubGrupoTerapeutico(){  // hace llamadas del servicio para el filtro 3 
-    this.medicineService.getFilter3(this.terapeutico).subscribe((res)=>{
-      this.subgrupo_terapeutico = res
-    })
+  capturarSubGrupoTerapeutico(){  // hace llamadas del servicio para el filtro 3  
+    if(this.networkStatus.connected){
+      this.medicineService.getFilter3(this.terapeutico).subscribe((res)=>{
+        this.subgrupo_terapeutico = res
+        this.medicineService.saveGrupoTerapeuticoOffline(this.terapeutico,res);
+      })
+  
+    }else{
+      this.medicineService.getOfflinedata(this.terapeutico).then((res)=>{
+        this.subgrupo_terapeutico=res;
+      })
+    }
   }
   
   capturarSubGrupoQuimicoTerapeutico(){  // hace llamadas del servicio para el filtro 3 
-    this.medicineService.getFilter4(this.subterapeutico).subscribe((res)=>{
-      this.subgrupoquimico_terapeutico = res
-    })
+    
+    if(this.networkStatus.connected){
+      this.medicineService.getFilter4(this.subterapeutico).subscribe((res)=>{
+        this.subgrupoquimico_terapeutico = res
+        this.medicineService.saveGrupoTerapeuticoOffline(this.subterapeutico,res);
+      }) 
+    }else{
+      this.medicineService.getOfflinedata(this.subterapeutico).then((res)=>{
+        this.subgrupoquimico_terapeutico=res;
+      })
+    }
   }
   
   capturarFrecuentes(){  // hace llamadas del servicio para el filtro 3 
@@ -215,29 +258,42 @@ export class MedicamentosPage implements OnInit {
   }
 
   botonqumicoterapeutico(){
-    this.flag_subquimicoterapeutico =true;
-    this.subgrupoquimico_terapeutico = [];
     this.subquimicoterapeutico = ""
     this.setFilteredType();
   }
 
   botonsubterapeutico(){
-    this.flag_subterapeutico =true;
-    this.subgrupo_terapeutico = [];
+    this.subgrupoquimico_terapeutico = []
     this.subterapeutico = ""
     this.botonqumicoterapeutico()
     this.setFilteredsubGroup();
   }
 
   botonterapeutico(){
-    this.flag_terapeutico = true;
-    this.grupo_terapeutico = []
+    this.subgrupo_terapeutico = []
+    this.subgrupoquimico_terapeutico = []
     this.terapeutico = ""
     this.botonsubterapeutico()
     this.setFilteredGroup();
   }
 
-  async recargarTodo(){
+  botonanatomico(){
+    this.subgrupo_terapeutico = []
+    this.subgrupoquimico_terapeutico = []
+    this.grupo_terapeutico = []
+    this.anatomico = ""
+    this.botonterapeutico();
+    this.medicineArray = this.medicineArrayFinal
+    this.numeroItems = Object.keys(this.medicineArrayFinal).length;
+  }
+
+  botonfiltroterapeutico(){
+      this.filtrofrecuente = ""
+      this.medicineArray = this.medicineArrayFinal
+      this.numeroItems = Object.keys(this.medicineArrayFinal).length;
+  }
+
+  recargarTodo(){
     this.flag_subquimicoterapeutico =true;
     this.subgrupoquimico_terapeutico = [];
     this.subquimicoterapeutico = ""
@@ -247,11 +303,16 @@ export class MedicamentosPage implements OnInit {
     this.flag_subterapeutico =true;
     this.subgrupo_terapeutico = [];
     this.subterapeutico = ""
+    this.anatomico = ""
+    //para la bandera de todos los filtros
     this.bandera = true;
+    this.contadorBandera = 0;
+    //fin de la bandera
     this.searchTerm= ""
-    this.numeroItems = Object.keys(this.medicineArray).length;
-    this.medicineArray = await this.medicineArrayFinal
-    
+    this.medicineArray = this.medicineArrayFinal
+    this.numeroItems = Object.keys(this.medicineArrayFinal).length;
   }
+
+
 
 }

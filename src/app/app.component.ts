@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
       icon: 'reader'
     },
     {
-      title: 'PRESENTACION',
+      title: 'PRESENTACIÓN',
       url: '/presentacion',
       icon: 'information-circle'
     },
@@ -38,7 +38,7 @@ export class AppComponent implements OnInit {
       icon: 'pencil'
     },
     {
-      title: 'INFORMACION',
+      title: 'INFORMACIÓN',
       url: '/informacion',
       icon: 'information-circle'
     },
