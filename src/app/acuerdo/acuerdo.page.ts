@@ -7,12 +7,10 @@ import { DomSanitizer,SafeResourceUrl} from '@angular/platform-browser'
 })
 export class AcuerdoPage  {
 
-
-
-  pdfSRC : string
+  pdfSRC:string;
   constructor(private domSatizer :DomSanitizer) { 
+
     this.pdfSRC = "assets/pdf/acuerdo.pdf"
- 
   }
 }
 

@@ -3,7 +3,14 @@ ion-menu ion-content {
 }
 
 .logo {
-  background-image: linear-gradient(to right,white,#1FBFFF);;
+  background-image: linear-gradient(to right,white,#1FBFFF);
+  padding-left: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  .span1{
+    color: rgb(78, 120, 211);
+    font-size: small;
+  }
 }
 
 ion-menu.md ion-content {
