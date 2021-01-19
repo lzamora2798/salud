@@ -26,7 +26,7 @@
   </div>
   <div [hidden] = "bandera" class="hidediv">
     <div>
-      <ion-label>Grupo Anatomico</ion-label>
+      <ion-label>Grupo Anatómico</ion-label>
       <ion-item>     
       <ion-button (click) ="botonanatomico()" color="danger" style="padding-right:10px;"><ion-icon size="small" name="trash"></ion-icon></ion-button>
       <ion-select class="select-full-width" [(ngModel)]="anatomico" (ngModelChange)="determinarGrupo()">
@@ -36,7 +36,7 @@
     </ion-item>
     </div>
     <div [hidden] = "flag_terapeutico">
-      <ion-label>Grupo Terapeutico</ion-label>
+      <ion-label>Grupo Terapéutico</ion-label>
       <ion-item>
         <ion-button (click) ="botonterapeutico()" color="danger" style="padding-right:10px;"><ion-icon size="small" name="trash"></ion-icon></ion-button>
         <ion-select class="select-full-width" [(ngModel)]="terapeutico" (ngModelChange)="determinarGrupoTerapeutico()">
@@ -46,7 +46,7 @@
       </ion-item>
     </div>
     <div [hidden] = "flag_subterapeutico">
-      <ion-label>Subgrupo Terapeutico</ion-label>
+      <ion-label>Subgrupo Terapéutico</ion-label>
       <ion-item>
         <ion-button (click)="botonsubterapeutico()" color="danger" style="padding-right:10px;"><ion-icon size="small" name="trash"></ion-icon></ion-button>
         <ion-select class="select-full-width" [(ngModel)]="subterapeutico" (ngModelChange)="determinarSubGrupoTerapeutico()">
@@ -56,7 +56,7 @@
       </ion-item>
     </div>
     <div [hidden] = "flag_subquimicoterapeutico">
-      <ion-label>Subgrupo Quimico Terapeutico</ion-label>
+      <ion-label>Subgrupo Químico Terapéutico</ion-label>
       <ion-item>
         <ion-button (click)="botonqumicoterapeutico()" color="danger" style="padding-right:10px;"><ion-icon size="small" name="trash"></ion-icon></ion-button>
         <ion-select class="select-full-width"  [(ngModel)]="subquimicoterapeutico" (ngModelChange)="determinarSubGrupoQuimicoTerapeutico()">
