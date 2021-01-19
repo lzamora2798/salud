@@ -7,12 +7,10 @@ import { DomSanitizer,SafeResourceUrl} from '@angular/platform-browser'
 })
 export class AcuerdoPage  {
 
-
-
-  pdfSRC : string
+  vidUrl : SafeResourceUrl;
   constructor(private domSatizer :DomSanitizer) { 
-    this.pdfSRC = "assets/pdf/acuerdo.pdf"
- 
+    //(window as any).pdfWorkerSrc ='/pdf.worker.js';
+    this.vidUrl = this.domSatizer.bypassSecurityTrustResourceUrl("assets/pdf/acuerdo.pdf");
   }
 }
 

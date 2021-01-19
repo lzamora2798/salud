@@ -8,13 +8,7 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <iframe width="100%" height="100%" [src]="vidUrl" frameborder="0" allowfullscreen>
 
-  <pinch-zoom>
-    <pdf-viewer
-    [src]="pdfSRC"
-    [fit-to-page]="true"
-    [render-text]="true"
-    style="display: block;">
-    </pdf-viewer>
-  </pinch-zoom>
+  </iframe>
 </ion-content>

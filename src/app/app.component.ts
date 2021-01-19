@@ -43,7 +43,7 @@ export class AppComponent implements OnInit {
       icon: 'information-circle'
     },
     {
-      title: 'Version WEB',
+      title: 'Versión WEB',
       url: '/paginaweb',
       icon: 'globe'
     }
