@@ -7,11 +7,14 @@ import { DomSanitizer,SafeResourceUrl} from '@angular/platform-browser'
   styleUrls: ['./conasa.page.scss'],
 })
 export class ConasaPage {
-  pdfSRC:string
+  
+  vidUrl:SafeResourceUrl;
+  constructor(private domSatizer :DomSanitizer) { }
 
-  constructor() { 
-    this.pdfSRC = "assets/pdf/directorio.pdf"
+  ngOnInit() {
+    this.vidUrl = this.domSatizer.bypassSecurityTrustResourceUrl("assets/pdf/directorio.pdf");
   }
+
 
 
 }

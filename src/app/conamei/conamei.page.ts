@@ -10,9 +10,11 @@ import { DomSanitizer,SafeResourceUrl} from '@angular/platform-browser'
 
 export class ConameiPage {
 
-  pdfSRC:string;
-  constructor(private domSatizer :DomSanitizer) { 
-    this.pdfSRC = "assets/pdf/conamei.pdf"
+  vidUrl:SafeResourceUrl;
+  constructor(private domSatizer :DomSanitizer) { }
+
+  ngOnInit() {
+    this.vidUrl = this.domSatizer.bypassSecurityTrustResourceUrl("assets/pdf/conamei.pdf");
   }
 
 

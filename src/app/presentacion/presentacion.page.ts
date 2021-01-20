@@ -8,13 +8,14 @@ import { DomSanitizer,SafeResourceUrl} from '@angular/platform-browser'
 })
 export class PresentacionPage {
 
+  
   vidUrl:SafeResourceUrl;
-  pdfSRC:string
-  constructor(private domSatizer :DomSanitizer) { 
-    // cuando cambie hay que ponerle 
-    this.pdfSRC = "assets/pdf/presentacion.pdf"
-    
+  constructor(private domSatizer :DomSanitizer) { }
+
+  ngOnInit() {
+    this.vidUrl = this.domSatizer.bypassSecurityTrustResourceUrl("assets/pdf/presentacion.pdf");
   }
+
 
 }
 
