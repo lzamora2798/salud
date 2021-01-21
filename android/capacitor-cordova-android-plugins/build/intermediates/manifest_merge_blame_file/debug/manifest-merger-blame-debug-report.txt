@@ -1,0 +1,22 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:amazon="http://schemas.amazon.com/apk/res/android"
+3    xmlns:android="http://schemas.android.com/apk/res/android"
+4    package="capacitor.android.plugins"
+5    android:versionCode="1"
+6    android:versionName="1.0" >
+7
+8    <uses-sdk
+9        android:minSdkVersion="21"
+9-->C:\Users\luisz\Documents\cnmbecuador\android\capacitor-cordova-android-plugins\src\main\AndroidManifest.xml
+10        android:targetSdkVersion="29" />
+10-->C:\Users\luisz\Documents\cnmbecuador\android\capacitor-cordova-android-plugins\src\main\AndroidManifest.xml
+11
+12    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+12-->C:\Users\luisz\Documents\cnmbecuador\android\capacitor-cordova-android-plugins\src\main\AndroidManifest.xml:8:1-76
+12-->C:\Users\luisz\Documents\cnmbecuador\android\capacitor-cordova-android-plugins\src\main\AndroidManifest.xml:8:18-74
+13
+14    <application>
+14-->C:\Users\luisz\Documents\cnmbecuador\android\capacitor-cordova-android-plugins\src\main\AndroidManifest.xml:5:1-7:15
+15    </application>
+16
+17</manifest>
