@@ -1,17 +1,23 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpEventType } from '@angular/common/http';
 import { ArrayType } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import {map} from 'rxjs/operators';
-import { Plugins, NetworkStatus } from '@capacitor/core';
-import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer/ngx';
+import { Plugins, NetworkStatus, FilesystemDirectory } from '@capacitor/core';
+import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 import { File } from '@ionic-native/file/ngx';
-const { Storage ,Network} = Plugins;
+import { Observable } from 'rxjs';
+import { async } from '@angular/core/testing';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+
+const { Storage ,Network,Filesystem} = Plugins;
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class MedicineService {
+  url_down: string;
+  dowloadProgress:any;
   url ='http://conasa.dnet.ec/ws/_getSearch_Medicine.ws.php'
   url2 = 'http://conasa.dnet.ec/ws/_getAll_Detail.ws.php'
   filtro1= 'http://conasa.dnet.ec/ws/_getFilter1.ws.php' // no necesita imput
@@ -23,15 +29,15 @@ export class MedicineService {
   public items: any;
   public ArrayItems: ArrayType;
   public networkStatus: NetworkStatus;
-  public fileTransfer: FileTransferObject = this.transfer.create();
+  public fileTransfer: FileTransferObject;
 
   constructor(private http: HttpClient,private transfer: FileTransfer, private file: File) {
     //this.items = this.getData(); 
-  
+    this.fileTransfer = this.transfer.create();
     this.saveEverything();
     this.saveFiltro1Offline();
   }
-
+ 
 
  async saveEverything(){
   this.networkStatus = await Network.getStatus();
@@ -150,12 +156,62 @@ export class MedicineService {
   }));
   }
 
-  download(url:string) {
-    this.fileTransfer.download('http://conasa.dnet.ec/admin/archivos/conasa/_pictogramas/' +url, this.file.dataDirectory + url).then((entry) => {
+
+
+  download2() {
+    const url = 'http://conamei.conasa.gob.ec/admin/archivos/conasa/_sections/directorio.pdf';
+    this.fileTransfer.download(url, this.file.dataDirectory + 'file.pdf').then((entry) => {
       console.log('download complete: ' + entry.toURL());
     }, (error) => {
-      console.log(error)
+      console.log("dont work",error)
     });
   }
+
+  convertBlobToBase64 = (blob:Blob) => new Promise((resolve,reject)=>{
+    const reader = new FileReader;
+    reader.onerror = reject;
+    reader.onload = () =>{
+      resolve(reader.result)
+    }
+    reader.readAsDataURL(blob)
+  })
+
+  getMimeType(name){
+    if(name.indexOf('pdf')>=0){
+      return 'application/pdf';
+    }else if (name.indexOf('png')>=0){
+      return 'image/png';
+    }
+  }
+
+  downloadFile(url:string){
+    this.http.get(url,{ 
+      responseType: 'blob',
+      reportProgress:true,
+      observe:'events',
+     
+    }).subscribe(async event =>{
+      if(event.type === HttpEventType.DownloadProgress){
+        this.dowloadProgress = Math.round((100*event.loaded) / event.total);
+
+      }
+      else if (event.type === HttpEventType.Response){
+        this.dowloadProgress = 0;
+
+        const name = url.substr(url.lastIndexOf('/')+1);
+        const base64 = await this.convertBlobToBase64(event.body) as string;
+
+        const foo = await Filesystem.writeFile({
+          path:name,
+          data:base64,
+          directory: FilesystemDirectory.Documents,
+
+        })
+        console.log('saved',foo)
+      }
+    })
+  }
+
+
 
 }
