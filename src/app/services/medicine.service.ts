@@ -5,6 +5,7 @@ import {map} from 'rxjs/operators';
 import { Plugins, NetworkStatus, FilesystemDirectory } from '@capacitor/core';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 import { File } from '@ionic-native/file/ngx';
+
 import { Observable } from 'rxjs';
 import { async } from '@angular/core/testing';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
@@ -158,8 +159,7 @@ export class MedicineService {
 
 
 
-  download2() {
-    const url = 'http://conamei.conasa.gob.ec/admin/archivos/conasa/_sections/directorio.pdf';
+  download2(url) {
     this.fileTransfer.download(url, this.file.dataDirectory + 'file.pdf').then((entry) => {
       console.log('download complete: ' + entry.toURL());
     }, (error) => {
@@ -197,17 +197,16 @@ export class MedicineService {
       }
       else if (event.type === HttpEventType.Response){
         this.dowloadProgress = 0;
-
         const name = url.substr(url.lastIndexOf('/')+1);
         const base64 = await this.convertBlobToBase64(event.body) as string;
-
         const foo = await Filesystem.writeFile({
           path:name,
           data:base64,
           directory: FilesystemDirectory.Documents,
-
         })
-        console.log('saved',foo)
+        console.log('saved',foo.uri) 
+        const mimetype = this.getMimeType(name)
+     
       }
     })
   }
