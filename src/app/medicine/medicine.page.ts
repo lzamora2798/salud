@@ -12,7 +12,8 @@ const { Network} = Plugins;
 export class MedicinePage implements OnInit {
 
   public record: string;
-  public info: any;
+  public info: any ;
+  public escondido : boolean = false;
   public banderas = {
     picto:true,
     indicaciones:true,
@@ -41,10 +42,11 @@ export class MedicinePage implements OnInit {
    
     let state = await Network.getStatus();
   
-    if(state.connected){ 
+    if(state.connected){
+      this.escondido = false; 
     this.medicineService.getDataEachMedicine(this.record).subscribe((res) =>{ //una opcion es enviar el subcribe al service
       this.info =res;
-      this.url ='http://conasa.dnet.ec/admin/archivos/conasa/_pictogramas/';
+      this.url ='http://conamei.conasa.gob.ec/admin/archivos/conasa/_pictogramas/';
       this.medicineService.saveEachMedicineOffline(this.record);
       this.pictogramasArray = res["picto"].split("|")
       //for( var i = 0; i<this.pictogramasArray.length;i++){
@@ -65,6 +67,8 @@ export class MedicinePage implements OnInit {
     },(error)=>{console.log(error)})
     }else{
       this.medicineService.getOfflinedata(this.record).then((res)=>{
+        if (res){
+        this.escondido = false;
         this.info =res;
         this.url = 'file:///data/user/0/com.your.app/files/';
         this.medicineService.saveEachMedicineOffline(this.record);
@@ -81,9 +85,16 @@ export class MedicinePage implements OnInit {
         if(res["level_3"] == 'x')
           this.level3=false
   
-        console.log(this.info)
-
-      },(error)=>{console.log(error)})
+        //console.log(this.info)
+      }
+      else{
+        console.log(res)
+        this.escondido = true;
+      }
+      },(error)=>{console.log(error);
+       
+        
+      })
     }
   }
 

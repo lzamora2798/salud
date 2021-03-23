@@ -19,14 +19,14 @@ const { Storage ,Network,Filesystem} = Plugins;
 export class MedicineService {
   url_down: string;
   dowloadProgress:any;
-  url ='http://conasa.dnet.ec/ws/_getSearch_Medicine.ws.php'
-  url2 = 'http://conasa.dnet.ec/ws/_getAll_Detail.ws.php'
-  filtro1= 'http://conasa.dnet.ec/ws/_getFilter1.ws.php' // no necesita imput
-  filtro2= 'http://conasa.dnet.ec/ws/_getFilter2.ws.php'
-  filtro3= 'http://conasa.dnet.ec/ws/_getFilter3.ws.php'
-  filtro4= 'http://conasa.dnet.ec/ws/_getFilter4.ws.php'
-  filtroF= 'http://conasa.dnet.ec/ws/_getFilterF.ws.php'
-  filtrofamilia = 'http://conasa.dnet.ec/ws/_getFrecuency_Medicine.ws.php'
+  url ='http://conamei.conasa.gob.ec//ws/_getSearch_Medicine.ws.php'
+  url2 = 'http://conamei.conasa.gob.ec//ws/_getAll_Detail.ws.php'
+  filtro1= 'http://conamei.conasa.gob.ec//ws/_getFilter1.ws.php' // no necesita imput
+  filtro2= 'http://conamei.conasa.gob.ec//ws/_getFilter2.ws.php'
+  filtro3= 'http://conamei.conasa.gob.ec//ws/_getFilter3.ws.php'
+  filtro4= 'http://conamei.conasa.gob.ec//ws/_getFilter4.ws.php'
+  filtroF= 'http://conamei.conasa.gob.ec//ws/_getFilterF.ws.php'
+  filtrofamilia = 'http://conamei.conasa.gob.ec//ws/_getFrecuency_Medicine.ws.php'
   public items: any;
   public ArrayItems: ArrayType;
   public networkStatus: NetworkStatus;
@@ -159,7 +159,7 @@ export class MedicineService {
 
 
 
-  download2(url) {
+  /* download2(url) {
     this.fileTransfer.download(url, this.file.dataDirectory + 'file.pdf').then((entry) => {
       console.log('download complete: ' + entry.toURL());
     }, (error) => {
@@ -209,7 +209,7 @@ export class MedicineService {
      
       }
     })
-  }
+  } */
 
 
 

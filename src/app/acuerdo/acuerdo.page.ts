@@ -13,7 +13,7 @@ export class AcuerdoPage  {
 
     this.pdfSRC = "assets/pdf/acuerdo.pdf"
     //this.medicineService.downloadFile("https://file-examples-com.github.io/uploads/2017/10/file-example_PDF_1MB.pdf");
-    this.medicineService.download2("https://file-examples-com.github.io/uploads/2017/10/file-example_PDF_1MB.pdf")
+    //this.medicineService.download2("https://file-examples-com.github.io/uploads/2017/10/file-example_PDF_1MB.pdf")
   }
 }
 

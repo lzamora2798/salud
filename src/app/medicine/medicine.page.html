@@ -14,7 +14,8 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content *ngIf="info">
+<ion-content >
+  <div *ngIf="info" >
 <div class="general">
   <div class="tituloCentrado">
     <ion-label >
@@ -133,5 +134,18 @@
 <ion-button expand="full" color="tertiary"  (click)="clickBotonesInformativos('citados')">TRABAJOS CITADOS</ion-button>
 <div [hidden] = "banderas.citados">
   <span  [innerHTML]="info.bibliography"></span>
+</div>
+</div>
+<div *ngIf="!info" [hidden] ="!escondido" class="divOffline">
+  <div style="text-align: center;">
+    <ion-icon name="cloud-offline-outline">
+   
+    </ion-icon>
+  </div>
+  
+  <div style="text-align: center;">
+    <span>No existe informacion descargada para este medicamento</span>
+  </div>
+  
 </div>
 </ion-content>
