@@ -1,4 +1,4 @@
-package com.your.app;
+package com.your.cnmbec;
 
 import android.os.Bundle;
 
