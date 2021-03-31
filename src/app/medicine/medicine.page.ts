@@ -44,7 +44,7 @@ export class MedicinePage implements OnInit {
     if(state.connected){ 
     this.medicineService.getDataEachMedicine(this.record).subscribe((res) =>{ //una opcion es enviar el subcribe al service
       this.info =res;
-      this.url ='http://conasa.dnet.ec/admin/archivos/conasa/_pictogramas/';
+      this.url ='http://conamei.conasa.gob.ec/admin/archivos/conasa/_pictogramas/';
       this.medicineService.saveEachMedicineOffline(this.record);
       this.pictogramasArray = res["picto"].split("|")
       //for( var i = 0; i<this.pictogramasArray.length;i++){
@@ -62,7 +62,9 @@ export class MedicinePage implements OnInit {
         this.level2=false
       if(res["level_3"] == 'x')
         this.level3=false
-    },(error)=>{console.log(error)})
+    },(error)=>{
+     // console.log(error)
+    })
     }else{
       this.medicineService.getOfflinedata(this.record).then((res)=>{
         this.info =res;
@@ -81,9 +83,11 @@ export class MedicinePage implements OnInit {
         if(res["level_3"] == 'x')
           this.level3=false
   
-        console.log(this.info)
+        //console.log(this.info)
 
-      },(error)=>{console.log(error)})
+      },(error)=>{
+        //console.log(error)
+      })
     }
   }
 
@@ -96,7 +100,7 @@ export class MedicinePage implements OnInit {
   }
 
   retroceder(){
-    console.log("retrocede")
+    //console.log("retrocede")
   }
 
 }

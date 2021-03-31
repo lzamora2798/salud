@@ -10,7 +10,7 @@ export class PaginawebPage implements OnInit {
   constructor(private domSatizer :DomSanitizer) { }
 
   ngOnInit() {
-    this.vidUrl = this.domSatizer.bypassSecurityTrustResourceUrl("http://conasa.dnet.ec/");
+    this.vidUrl = this.domSatizer.bypassSecurityTrustResourceUrl("http://conamei.conasa.gob.ec");
   }
 
 }
