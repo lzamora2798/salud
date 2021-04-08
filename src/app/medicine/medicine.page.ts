@@ -13,6 +13,7 @@ export class MedicinePage implements OnInit {
 
   public record: string;
   public info: any;
+  public dosageUrl :any;
   public banderas = {
     picto:true,
     indicaciones:true,
@@ -44,7 +45,8 @@ export class MedicinePage implements OnInit {
     if(state.connected){ 
     this.medicineService.getDataEachMedicine(this.record).subscribe((res) =>{ //una opcion es enviar el subcribe al service
       this.info =res;
-      this.url ='http://conamei.conasa.gob.ec/admin/archivos/conasa/_pictogramas/';
+      this.url =this.medicineService.link+'/admin/archivos/conasa/_pictogramas/';
+      this.dosageUrl = this.medicineService.link +'/admin/archivos/conasa/_dosificacion/'+ this.info.dosage_image
       this.medicineService.saveEachMedicineOffline(this.record);
       this.pictogramasArray = res["picto"].split("|")
       //for( var i = 0; i<this.pictogramasArray.length;i++){
