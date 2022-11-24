@@ -29,6 +29,7 @@ export class MedicinePage implements OnInit {
   }
 
   public pictogramasArray : any;
+  public formsArray :any;
   public dosage_flag :boolean;
   public level1=true
   public level2=true
@@ -47,6 +48,7 @@ export class MedicinePage implements OnInit {
       this.escondido = false; 
     this.medicineService.getDataEachMedicine(this.record).subscribe((res) =>{ //una opcion es enviar el subcribe al service
       this.info =res;
+      console.log(this.info)
       this.url = this.medicineService.link+'/admin/archivos/conasa/_pictogramas/';
       this.dosilink = this.medicineService.link +'/admin/archivos/conasa/_dosificacion/' + this.info.dosage_image;
       this.medicineService.saveEachMedicineOffline(this.record);
@@ -54,6 +56,11 @@ export class MedicinePage implements OnInit {
       //for( var i = 0; i<this.pictogramasArray.length;i++){
         //this.medicineService.download(this.pictogramasArray[i])
       //}
+
+      this.medicineService.getFilterTable(this.info.code).subscribe((res)=>{
+        this.formsArray = res;
+        console.log(this.formsArray)
+      })
       
       if (res["dosage_image"].localeCompare("")){
         this.dosage_flag = true

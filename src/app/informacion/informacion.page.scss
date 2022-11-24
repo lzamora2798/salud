@@ -1,7 +1,32 @@
 .contenedor{
-    text-align: center;
+    text-align: left;
+    padding-left: 15%;
+    padding-right: 15%;
 }
 
 .p{
     font-size: xx-small;
+}
+
+ion-content{
+
+    --ion-background-color:rgb(51, 109  ,142);
+}
+
+.lb2{
+    color: white;
+    padding-bottom: 5%;
+    ion-icon{
+        width: 20px;
+        height: 20px;
+        padding-right: 10%;
+    }
+    span{
+        font-weight: bold;
+        font-size: 20px;
+    }
+    ion-label{
+        size: 14px;
+        padding-right: 10%;
+    }
 }

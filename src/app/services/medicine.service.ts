@@ -27,6 +27,7 @@ export class MedicineService {
   filtro3= this.link+'/ws/_getFilter3.ws.php'
   filtro4= this.link+'/ws/_getFilter4.ws.php'
   filtroF= this.link+'/ws/_getFilterF.ws.php'
+  filtroForm = this.link + '/ws/_getAll_Form.ws.php?_code='
   filtrofamilia = this.link+'/ws/_getFrecuency_Medicine.ws.php'
   public items: any;
   public ArrayItems: ArrayType;
@@ -128,6 +129,12 @@ export class MedicineService {
   
   getFilter2(record:string){
     return this.http.get(`${this.filtro2}?_group=${record}`).pipe(map( action =>{
+        return action['result'];
+    }));
+  }
+
+  getFilterTable(record:string){
+    return this.http.get(`${this.filtroForm}${record}`).pipe(map( action =>{
         return action['result'];
     }));
   }

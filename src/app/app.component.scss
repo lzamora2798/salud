@@ -2,6 +2,10 @@ ion-menu ion-content {
   --background: var(--ion-item-background, var(--ion-background-color, #fff));
 }
 
+ion-menu{
+  --ion-background-color:white;
+}
+
 .logo {
   background-image: linear-gradient(to right,white,#1FBFFF);
   padding-left: 20px;
@@ -10,6 +14,23 @@ ion-menu ion-content {
   .span1{
     color: rgb(78, 120, 211);
     font-size: small;
+  }
+  .span2{
+    color: rgb(29, 44, 78);
+    font-weight: bold;
+    font-size: 18px;
+    top: 20px;
+    right: 20px;
+    position: fixed;
+    text-align: center;
+  }
+  .span3{
+    color: rgb(29, 44, 78);
+    font-weight: bold;
+    font-size: 10px;
+    top: 20px;
+    right: 20px;
+    text-align: center;
   }
 }
 

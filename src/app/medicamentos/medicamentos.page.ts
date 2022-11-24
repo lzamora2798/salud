@@ -52,13 +52,11 @@ export class MedicamentosPage implements OnInit {
   async ngOnInit() {
     let state = await Network.getStatus();
     this.networkStatus = state;
-    console.log("status:",state.connected);
     const loadingG = await this.showLoading("espere...");
     if(!state.connected){ // enviar las alertas de las denuncias que surgan en vivo
       this.presentToast("Modo Offline")
       //this.showLoading("Espere") //mesaje del modal de esperar 
       this.medicineService.getOfflinedata('main').then((data)=>{
-        console.log("data",data)
         this.medicineArrayFinal =data;
         this.setFilteredItems();
         
@@ -76,7 +74,6 @@ export class MedicamentosPage implements OnInit {
       this.medicineService.getData().subscribe((res) =>{ //una opcion es enviar el subcribe al service
         this.medicineArrayFinal =res;
         this.setFilteredItems();
-        console.log(this.medicineArray)
         //this.databaseService.ResiveArray(this.medicineArrayFinal)
         if (this.medicineArrayFinal){
           setTimeout(()=>{loadingG.dismiss()},500)
@@ -102,19 +99,14 @@ export class MedicamentosPage implements OnInit {
   }
 
   mostrarFiltro(){
-    if (this.contadorBandera == 0){
-      this.bandera = false;
-      this.contadorBandera = 1;
-    }
-    else{
-      this.bandera = true;
-      this.contadorBandera = 0;
-    }
+ 
   }
   setFilteredItems() {
     this.medicineArray = this.filterItems(this.searchTerm,"description");
+    if(this.medicineArray.length == 0){
+      this.medicineArray = this.filterItems(this.searchTerm.toUpperCase(),"code");
+    }
     this.numeroItems = Object.keys(this.medicineArray).length;
-    console.log(this.numeroItems)
   }
   setFilteredGroup() {
     this.medicineArray = this.filterItems(this.anatomico,"group");
@@ -163,7 +155,6 @@ export class MedicamentosPage implements OnInit {
 
 
   determinarGrupo(){
-    console.log(this.anatomico)
     this.setFilteredGroup();
     this.flag_terapeutico = false;
     this.capturarGrupoTerapeutico();
@@ -172,7 +163,6 @@ export class MedicamentosPage implements OnInit {
  
 
   determinarGrupoTerapeutico(){
-    console.log(this.terapeutico)
     this.setFilteredsubGroup();
     this.flag_subterapeutico = false;
     this.capturarSubGrupoTerapeutico();
@@ -180,19 +170,16 @@ export class MedicamentosPage implements OnInit {
 
   
   determinarSubGrupoTerapeutico(){
-    console.log(this.subterapeutico)
     this.setFilteredType();
     this.flag_subquimicoterapeutico = false;
     this.capturarSubGrupoQuimicoTerapeutico();
   }
 
   determinarSubGrupoQuimicoTerapeutico(){
-    console.log(this.subquimicoterapeutico);
     this.setFilteredSubType();
   }
 
   determinarFrecuentes(){
-    console.log(this.filtrofrecuente)
     this.setFilterFrecuente();
   }
 
@@ -294,23 +281,7 @@ export class MedicamentosPage implements OnInit {
   }
 
   recargarTodo(){
-    this.flag_subquimicoterapeutico =true;
-    this.subgrupoquimico_terapeutico = [];
-    this.subquimicoterapeutico = ""
-    this.flag_terapeutico = true;
-    this.grupo_terapeutico = []
-    this.terapeutico = ""
-    this.flag_subterapeutico =true;
-    this.subgrupo_terapeutico = [];
-    this.subterapeutico = ""
-    this.anatomico = ""
-    //para la bandera de todos los filtros
-    this.bandera = true;
-    this.contadorBandera = 0;
-    //fin de la bandera
-    this.searchTerm= ""
-    this.medicineArray = this.medicineArrayFinal
-    this.numeroItems = Object.keys(this.medicineArrayFinal).length;
+
   }
 
 
