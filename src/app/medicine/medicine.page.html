@@ -54,20 +54,30 @@
 </div>
 
 <ion-grid>
-  <ion-row>
-    <ion-col class="col1">
-      <span >Forma / Concentración / Admin. / Prescipción / Nivel</span>
-    </ion-col>
-  </ion-row>
+
   <ion-row *ngFor="let forme of formsArray">
-    <div class="container2">
-      <div class="tt2">{{forme.form}}</div>
-      <div>{{forme.concentration}}</div>
-      <div>{{forme.administration}}</div>
-      <div>{{forme.prescription}}</div>
-      <div>{{forme.level}}</div>
-    </div>
+    <hr>
+    <ion-col class="col1">
+      <div class="container2">
+        <div>Forma</div>
+        <div>Concentración</div>
+        <div>Admin</div>
+        <div>Prescipción</div>
+        <div>Nivel</div>
+      </div>
+    </ion-col>
+    <ion-col >
+      <div class="container2">
+        <div class="tt2">{{forme.form}}</div>
+        <div>{{forme.concentration}}</div>
+        <div>{{forme.administration}}</div>
+        <div>{{forme.prescription}}</div>
+        <div>{{forme.level}}</div>
+      </div>
+    </ion-col>
+   
   </ion-row>
+  <hr>
 </ion-grid>
 <ion-button expand="full" color="tertiary" (click)="clickBotonesInformativos('picto')">PICTOGRAMAS</ion-button>
 <div class="row1" [hidden] = "banderas.picto">
