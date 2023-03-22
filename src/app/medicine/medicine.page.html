@@ -16,7 +16,7 @@
 
 <ion-content >
   <div *ngIf="info" >
-<div class="general">
+<div >
   <div class="tituloCentrado2">
     <ion-label >
     CONSEJO NACIONAL DE SALUD - CONASA
@@ -31,54 +31,51 @@
   <ion-grid >
     <ion-row>
       <ion-col class="col1">
-        <span>Código ATC</span>
+        <span style="font-size:0.95em">Código ATC</span>
       </ion-col>
     </ion-row>
-    <ion-row>
+    <ion-row style="padding-bottom: 2%;">
       <ion-col class="col2">
-        <span>{{info.code}}</span>
+        <span style="font-size:0.95em;">{{info.code}}</span>
       </ion-col>
     </ion-row>
-    <br/>
     <ion-row>
       <ion-col class="col1">
-        <span >Denominación Comun Internacional:</span>
+        <span style="font-size:0.95em" >Denominación Comun Internacional:</span>
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col class="col3">
-        <span >{{info.description}}</span>
+        <span style="font-size:0.95em">{{info.description}}</span>
       </ion-col>
     </ion-row>
   </ion-grid>
 </div>
 
-<ion-grid>
-
-  <ion-row *ngFor="let forme of formsArray">
-    <hr>
-    <ion-col class="col1">
-      <div class="container2">
-        <div>Forma</div>
-        <div>Concentración</div>
-        <div>Admin</div>
-        <div>Prescipción</div>
-        <div>Nivel</div>
-      </div>
-    </ion-col>
-    <ion-col >
-      <div class="container2">
-        <div class="tt2">{{forme.form}}</div>
-        <div>{{forme.concentration}}</div>
-        <div>{{forme.administration}}</div>
-        <div>{{forme.prescription}}</div>
-        <div>{{forme.level}}</div>
-      </div>
-    </ion-col>
-   
-  </ion-row>
+<ion-grid *ngFor="let forme of formsArray">
   <hr>
+  <ion-row>
+    <ion-col class="col1">Forma</ion-col>
+    <ion-col class="tt2">{{forme.form}}</ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col class="col1">Concentración</ion-col>
+    <ion-col>{{forme.concentration}}</ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col class="col1">Admin</ion-col>
+    <ion-col>{{forme.administration}}</ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col class="col1">Prescipción</ion-col>
+    <ion-col>{{forme.prescription}}</ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col class="col1">Nivel</ion-col>
+    <ion-col>{{forme.level}}</ion-col>
+  </ion-row>
 </ion-grid>
+<hr>
 <ion-button expand="full" color="tertiary" (click)="clickBotonesInformativos('picto')">PICTOGRAMAS</ion-button>
 <div class="row1" [hidden] = "banderas.picto">
   <ion-img  *ngFor="let picto of pictogramasArray" style="height: 100px; width: 100px; display: inline-block;"
