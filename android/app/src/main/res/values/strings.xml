@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">CNNBecuador</string>
-    <string name="title_activity_main">CNNBecuador</string>
-    <string name="package_name">com.conasaec.app</string>
-    <string name="custom_url_scheme">com.conasaec.app</string>
+    <string name="app_name">CNMBEcuador</string>
+    <string name="title_activity_main">CNMBEcuador</string>
+    <string name="package_name">com.your.cnmbec</string>
+    <string name="custom_url_scheme">com.your.cnmbec</string>
 </resources>

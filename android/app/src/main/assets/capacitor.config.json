@@ -1,6 +1,6 @@
 {
-  "appId": "com.conasaec.app",
-  "appName": "CNNB Ecuador",
+  "appId": "com.your.cnmbec",
+  "appName": "CNMBEcuador",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "www",
